@@ -51,6 +51,12 @@ Start with the [scientific route](science/README.md) or go directly to a result:
 
 The graph inequality, Fourier methods and MDS inequality are inherited. The security result combines them to cover **arbitrarily overlapping independent bipartite sources**, including complete source graphs. The closest source-network reduction selects a large integral independent vertex set; the present one-bit bound remains effective when no such set exists. The [comparison](references/RELATED_WORK.md) preserves the different output and reference assumptions of earlier results.
 
+## Learn the argument
+
+The educational anchor is **John Watrous, *The Theory of Quantum Information* (2018)**. The [learning route](learning/README.md) connects selected sections to the exact leakage experiment. Its [source-to-project bridge](learning/WATROUS_BRIDGE.md) translates the notation, explains states, measurements, norms and purifications, and works through a complete two-share Bell-pair example.
+
+The [30-milestone map](learning/MILESTONES.md) follows the scientific dependencies: 14 background milestones assemble the classical sharing and quantum information model, and 16 narrative milestones connect the coefficient bounds to the results, their scope and their significance. Finite-field sharing, Fourier analysis, MDS coding and the network inequalities are supplied by the repository and its cited primary research.
+
 ## Reproduce the finite checks
 
 From the repository root, run:
