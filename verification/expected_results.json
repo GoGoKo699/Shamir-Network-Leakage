@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "matching_born_enumeration": [
+    {
+      "n": 2,
+      "p": 3,
+      "secrets": [
+        0,
+        1
+      ],
+      "frequency": 2,
+      "sharings_per_secret": 3,
+      "outcomes": 4,
+      "direct_total_variation": 0.8660254037844382,
+      "exact_formula": 0.8660254037844387
+    },
+    {
+      "n": 4,
+      "p": 5,
+      "secrets": [
+        1,
+        3
+      ],
+      "frequency": 4,
+      "sharings_per_secret": 125,
+      "outcomes": 16,
+      "direct_total_variation": 0.47552825814757566,
+      "exact_formula": 0.47552825814757677
+    },
+    {
+      "n": 6,
+      "p": 7,
+      "secrets": [
+        2,
+        5
+      ],
+      "frequency": 6,
+      "sharings_per_secret": 16807,
+      "outcomes": 64,
+      "direct_total_variation": 0.24373197804546815,
+      "exact_formula": 0.2437319780454559
+    }
+  ],
+  "exact_shamir_fourier": [
+    {
+      "n": 4,
+      "t": 3,
+      "p": 5,
+      "dual_dimension": 2,
+      "dual_words": 25,
+      "minimum_nonzero_weight": 3,
+      "bijective_information_sets": 6,
+      "exact_parity_identities_checked": 32,
+      "secret_dependent_proper_parities": 4,
+      "direct_total_variation_fraction": "9/25"
+    },
+    {
+      "n": 5,
+      "t": 3,
+      "p": 7,
+      "dual_dimension": 3,
+      "dual_words": 343,
+      "minimum_nonzero_weight": 3,
+      "bijective_information_sets": 10,
+      "exact_parity_identities_checked": 64,
+      "secret_dependent_proper_parities": 9,
+      "direct_total_variation_fraction": "2/7"
+    }
+  ],
+  "bound_optimization": {
+    "finite_arbitrary_reference": [
+      {
+        "n": 40,
+        "t": 37,
+        "q": 10.0,
+        "numerical_log2_bound": -1.012753823494016,
+        "closed_log2_bound": -1.0127538234940126,
+        "simple_log2_bound": 0.0898500028846243
+      },
+      {
+        "n": 100,
+        "t": 95,
+        "q": 16.666666666666668,
+        "numerical_log2_bound": -11.331618257304285,
+        "closed_log2_bound": -11.331618257304262,
+        "simple_log2_bound": -9.240224995673064
+      },
+      {
+        "n": 1000,
+        "t": 950,
+        "q": 19.607843137254903,
+        "numerical_log2_bound": -124.44375518708603,
+        "closed_log2_bound": -124.44375518708623,
+        "simple_log2_bound": -106.66691246322104
+      }
+    ],
+    "finite_no_reference": [
+      {
+        "n": 10,
+        "t": 6,
+        "q": 2.0,
+        "active_optimizer": "stationary",
+        "numerical_log2_bound": 4.854752972273342,
+        "closed_log2_bound": 4.854752972273342
+      },
+      {
+        "n": 40,
+        "t": 35,
+        "q": 6.666666666666667,
+        "active_optimizer": "crossing",
+        "numerical_log2_bound": -8.958607689135697,
+        "closed_log2_bound": -8.958607689135697
+      }
+    ],
+    "reference_sufficient_rate_numerical": 0.9042045924785356,
+    "reference_sufficient_rate_closed": 0.9042045924785356,
+    "scalar_sufficient_rate_numerical": 0.7569352555764817,
+    "scalar_sufficient_rate_closed": 0.7569352555764817,
+    "interpretation": "sufficient rates from stated bounds; not optimal security thresholds"
+  },
+  "coherent_mixture_boundary": {
+    "n": 5,
+    "p": 7,
+    "secrets": [
+      0,
+      1
+    ],
+    "frequency": 4,
+    "sharings_per_secret": 2401,
+    "coherent_cq_trace_distance": 0.974927912181844,
+    "classically_flagged_cq_trace_distance": 0.0,
+    "reference_without_bits_trace_distance": 0.0,
+    "counterexample_formula": 0.9749279121818236,
+    "inapplicable_product_marginal_bound": 0.8198133864844837
+  }
+}
