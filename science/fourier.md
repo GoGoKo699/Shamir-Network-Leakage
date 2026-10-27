@@ -9,7 +9,7 @@ The notation and adversary model are fixed in [the model](model.md). The Fourier
 Let
 
 ```math
-C_0=\operatorname{span}_{\mathbb F_p}
+C_0=\mathrm{span}_{\mathbb F_p}
 \left\{(\alpha_i^j)_{i=1}^n:1\le j\le t-1\right\},
 \qquad C=C_0^\perp.
 ```
@@ -77,7 +77,7 @@ It follows by expanding the left side and using $`\sum_k\omega^{k(y-z)}=p\,\math
 For $`S\subseteq[n]`$, write $`\chi_S(b)=(-1)^{\sum_{i\in S}b_i}`$ and define an operator on $`E`$ by
 
 ```math
-F_{S,E}(s)=\mathbb E_{Y\mid s}\operatorname{Tr}_D
+F_{S,E}(s)=\mathbb E_{Y\mid s}\mathrm{Tr}_D
 \left[
 \left(\bigotimes_{i\in S}M_i(Y_i)
 \otimes I_{D_{S^c}}\otimes I_E\right)\rho_{DE}
@@ -102,10 +102,10 @@ Trace norm adds over classical blocks. Applying the triangle inequality inside e
 
 The $`2^n`$ output strings exactly cancel the factor $`2^{-n}`$. This step is valid for arbitrary reference dimension. It is the output estimate used in the reference-secure general-threshold theorem.
 
-Insert the local Fourier expansions. For $`k\in\mathbb F_p^n`$ with $`\operatorname{supp}k\subseteq S`$, set
+Insert the local Fourier expansions. For $`k\in\mathbb F_p^n`$ with $`\mathrm{supp}\,k\subseteq S`$, set
 
 ```math
-T_{S,E}(k)=\operatorname{Tr}_D
+T_{S,E}(k)=\mathrm{Tr}_D
 \left[
 \left(\bigotimes_{i\in S}A_i(k_i)
 \otimes I_{D_{S^c}}\otimes I_E\right)\rho_{DE}
@@ -116,7 +116,7 @@ The sharing character identity gives
 
 ```math
 F_{S,E}(s)
-=\sum_{\substack{k\in C\\\operatorname{supp}k\subseteq S}}
+=\sum_{\substack{k\in C\\\mathrm{supp}\,k\subseteq S}}
 \omega^{s\sum_i k_i}T_{S,E}(k).
 ```
 
@@ -125,7 +125,7 @@ The zero word cancels between two secrets. Every remaining phase difference has 
 ```math
 \Delta(s,s')
 \le\sum_{S\subseteq[n]}
-\sum_{\substack{k\in C\setminus\{0\}\\\operatorname{supp}k\subseteq S}}
+\sum_{\substack{k\in C\setminus\{0\}\\\mathrm{supp}\,k\subseteq S}}
 \|T_{S,E}(k)\|_1.
 ```
 

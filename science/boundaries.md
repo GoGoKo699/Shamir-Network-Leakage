@@ -20,9 +20,9 @@ Here trace distance has the $`\Delta`$ convention fixed in [the model](model.md#
 Reveal $`\Lambda`$ to the adversary. The two secret-dependent cq states are block diagonal in the same seed register, so
 
 ```math
-\operatorname{TD}(\rho_s,\rho_{s'})
+\mathrm{TD}(\rho_s,\rho_{s'})
 =\sum_\lambda p_\lambda\,
-\operatorname{TD}\!\left(
+\mathrm{TD}\!\left(
 \rho_s^{(\lambda)},\rho_{s'}^{(\lambda)}
 \right).
 ```
@@ -86,7 +86,7 @@ Consequently the distance of the complete cq outputs is
 
 ```math
 \begin{aligned}
-\operatorname{TD}(\rho_s,\rho_{s'})
+\mathrm{TD}(\rho_s,\rho_{s'})
 &=\sqrt{1-|\langle\chi_s|\chi_{s'}\rangle|^2}\\
 &=\left|\sin\!\left(\frac{\pi k(s-s')}{p}\right)\right|.
 \end{aligned}

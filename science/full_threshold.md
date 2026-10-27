@@ -73,7 +73,7 @@ For $`S\subseteq[n]`$, let
 ```math
 F_{S,E}(s)
 =\mathbb E_{X\mid\sum_iX_i=s}
-\operatorname{Tr}_D\!\left[
+\mathrm{Tr}_D\!\left[
 \left(\bigotimes_{i\in S}M_i(X_i)
 \otimes I_{D_{S^c}}\otimes I_E\right)\rho_{DE}
 \right].
@@ -116,7 +116,7 @@ The Fourier inverse is $`M_i(x)=\sum_k\omega^{kx}A_i(k)`$. Uniform averaging on 
 ```math
 F_E(s)=\sum_{k\in\mathbb F_p}\omega^{ks}T_E(k),
 \qquad
-T_E(k)=\operatorname{Tr}_D\!\left[
+T_E(k)=\mathrm{Tr}_D\!\left[
 \left(\bigotimes_{i=1}^n A_i(k)\otimes I_E\right)\rho_{DE}
 \right].
 \tag{3.1}
