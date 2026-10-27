@@ -74,7 +74,7 @@ Let $`P(b\mid y)=\bigotimes_iP_i(b_i\mid y_i)`$. The final classical-quantum sta
 \Omega_s^{BE}
 =\mathbb E_{Y\mid s}\sum_{b\in\{0,1\}^n}
 |b\rangle\langle b|\otimes
-\operatorname{Tr}_D\!\left[
+\mathrm{Tr}_D\!\left[
 (P(b\mid Y)\otimes I_E)\rho_{DE}
 \right].
 ```

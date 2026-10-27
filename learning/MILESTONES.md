@@ -187,7 +187,7 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 
 - **Phase:** Narrative/innovation.
 - **Central question:** What remains controllable when the adversary's extension has no graph factorization?
-- **Understanding target:** Follow trace-norm duality and state Cauchy–Schwarz to bound a reference-valued coefficient by $`(\operatorname{Tr}\Omega_D K^\dagger K)^{1/2}`$. Explain why the extension disappears from this expression but the literal independent-source device marginal remains necessary.
+- **Understanding target:** Follow trace-norm duality and state Cauchy–Schwarz to bound a reference-valued coefficient by $`(\mathrm{Tr}\,\Omega_D K^\dagger K)^{1/2}`$. Explain why the extension disappears from this expression but the literal independent-source device marginal remains necessary.
 - **Dependencies and story role:** Requires M07, M09, M14 and M15; opens the broader-reference branch without treating $`E`$ as a graph vertex.
 - **Conceptual connection:** Security is bounded for the complete final state, without conditioning on an adversary measurement and discarding the probability of its outcome.
 - **Source pointers:** [Network estimates, Eqs. (4.3)–(4.4)](../science/network_bounds.md#4-fourth-moments-with-an-arbitrary-external-reference); Watrous §1.1.3 for duality, §2.1.3 for purifications and §2.2.2, Proposition 2.29, for arbitrary extensions.

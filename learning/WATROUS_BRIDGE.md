@@ -32,7 +32,7 @@ The same letter can denote different objects in the book and in the sharing prob
 | Watrous notation or convention | Notation here | Translation |
 |---|---|---|
 | $`\mathcal X`$, a finite-dimensional complex Euclidean space | The Hilbert space associated with $`D_i`$, $`E`$, or a classical register | A register's linear state space |
-| $`\mathrm L(\mathcal X)`$, $`\mathrm{Pos}(\mathcal X)`$, $`\mathrm D(\mathcal X)`$ | Operators, positive semidefinite operators, and states on the named register | In particular, $`\rho_{DE}\succeq0`$ and $`\operatorname{Tr}\rho_{DE}=1`$ |
+| $`\mathrm L(\mathcal X)`$, $`\mathrm{Pos}(\mathcal X)`$, $`\mathrm D(\mathcal X)`$ | Operators, positive semidefinite operators, and states on the named register | In particular, $`\rho_{DE}\succeq0`$ and $`\mathrm{Tr}\,\rho_{DE}=1`$ |
 | $`A^*`$ | $`A^\dagger`$ | Conjugate transpose |
 | $`e_b`$, $`E_{b,b}=e_be_b^*`$ | $`\lvert b\rangle`$, $`\lvert b\rangle\langle b\rvert`$ | Basis vectors and classical basis projectors |
 | A measurement $`\mu(b)`$ | $`P_i(b\mid y)`$ | The effect for bit $`b`$, with the measurement selected by share $`y`$ |
@@ -66,7 +66,7 @@ The classical register $`Y`$ is diagonal. Its values select local measurements; 
 For an operator on $`D\otimes E`$, the partial trace can be evaluated in any orthonormal basis $`\{|a\rangle\}`$ of $`D`$:
 
 ```math
-\operatorname{Tr}_D Z
+\mathrm{Tr}_D Z
 =\sum_a(\langle a|\otimes I_E)Z(|a\rangle\otimes I_E).
 ```
 
@@ -76,7 +76,7 @@ For a fixed share vector $`y`$ and output string $`b`$, write $`P(b\mid y)=\bigo
 
 ```math
 \tau_E(b\mid y)
-=\operatorname{Tr}_D\!\left[
+=\mathrm{Tr}_D\!\left[
 (P(b\mid y)\otimes I_E)\rho_{DE}
 \right].
 ```
@@ -100,8 +100,8 @@ Suppose a device applies a local channel $`\Phi_i`$ before measuring an effect $
 ```math
 P_i(b\mid y)=\Phi_i^*(Q_i(b\mid y)),
 \qquad
-\operatorname{Tr}[Q_i(b\mid y)\Phi_i(\sigma)]
-=\operatorname{Tr}[P_i(b\mid y)\sigma].
+\mathrm{Tr}[Q_i(b\mid y)\Phi_i(\sigma)]
+=\mathrm{Tr}[P_i(b\mid y)\sigma].
 ```
 
 Because the adjoint preserves the identity and positivity, these effective operators again form a POVM. This is why the model permits arbitrary local preprocessing without assigning it a separate proof step. Joint processing of all incident source halves is still local to one device.
@@ -110,7 +110,7 @@ If an outcome is not retained, summing its effects gives the identity. In partic
 
 ```math
 \sum_b\tau_E(b\mid y)
-=\operatorname{Tr}_D\rho_{DE}=\rho_E.
+=\mathrm{Tr}_D\rho_{DE}=\rho_E.
 ```
 
 The adversary's unconditioned state cannot reveal the devices' measurement choices. Conditional states can change, and the outcomes needed to identify those states can carry information. The full-threshold proof uses the more specific fact that a proper output parity depends only on a proper subset of shares. Shamir privacy then removes its secret dependence; no-signaling alone would not establish the complete secrecy theorem.
@@ -133,7 +133,7 @@ This parametrization includes noisy measurements and randomized classical output
 
 ```math
 \mathbb E[(-1)^{B_i}\mid y,\sigma]
-=\operatorname{Tr}[M_i(y)\sigma].
+=\mathrm{Tr}[M_i(y)\sigma].
 ```
 
 Products of these signs are output parities. Expanding a product of binary effects therefore produces a sum indexed by subsets of devices. The exact expansion and its trace-distance consequences are derived in [the output Fourier account](../science/fourier.md#3-output-parities-with-a-quantum-reference).
@@ -145,9 +145,9 @@ The Fourier coefficient $`A_i(k)=p^{-1}\sum_y\omega^{-ky}M_i(y)`$ is generally *
 For a matrix $`Z`$, the three relevant Schatten norms are
 
 ```math
-\|Z\|_1=\operatorname{Tr}\sqrt{Z^\dagger Z},
+\|Z\|_1=\mathrm{Tr}\,\sqrt{Z^\dagger Z},
 \qquad
-\|Z\|_2=\sqrt{\operatorname{Tr}Z^\dagger Z},
+\|Z\|_2=\sqrt{\mathrm{Tr}\,Z^\dagger Z},
 \qquad
 \|Z\|_\infty=\text{largest singular value of }Z.
 ```
@@ -157,10 +157,10 @@ The operator norm certifies that Fourier coefficients are contractions. The Hilb
 The relevant instances of Schatten Hölder are
 
 ```math
-|\operatorname{Tr}(X^\dagger Y)|
+|\mathrm{Tr}(X^\dagger Y)|
 \le\|X\|_\infty\|Y\|_1,
 \qquad
-|\operatorname{Tr}(X^\dagger Y)|
+|\mathrm{Tr}(X^\dagger Y)|
 \le\|X\|_2\|Y\|_2.
 ```
 
@@ -172,7 +172,7 @@ The unitary variational formula in Watrous, Eq. (1.182), is used on a reference-
 
 ```math
 \|T_E\|_1=\max_{U_E\text{ unitary}}
-|\operatorname{Tr}(U_ET_E)|.
+|\mathrm{Tr}(U_ET_E)|.
 ```
 
 The formula applies to a non-Hermitian $`T_E`$. The unitary is a mathematical witness for the norm; it need not itself be a measurement outcome. Substituting the definition of $`T_E`$ converts its trace norm into a scalar expectation on the joint device-reference state.
@@ -181,10 +181,10 @@ In the arbitrary-reference argument, put $`K=\bigotimes_iA_i(k_i)`$. Cauchy-Schw
 
 ```math
 \begin{aligned}
-|\operatorname{Tr}\rho_{DE}(K\otimes U_E)|^2
-&\le\operatorname{Tr}\rho_{DE}
+|\mathrm{Tr}\,\rho_{DE}(K\otimes U_E)|^2
+&\le\mathrm{Tr}\,\rho_{DE}
 (K^\dagger K\otimes U_E^\dagger U_E)\\
-&=\operatorname{Tr}\rho_D K^\dagger K.
+&=\mathrm{Tr}\,\rho_D K^\dagger K.
 \end{aligned}
 ```
 
@@ -204,7 +204,7 @@ The quarter powers reflect that splitting. They are determined by the independen
 For an arbitrary extension, the Cauchy-Schwarz step above and the positive-effect network inequality instead lead to
 
 ```math
-b_i(k)=\operatorname{Tr}\rho_iA_i(k)^\dagger A_i(k),
+b_i(k)=\mathrm{Tr}\,\rho_iA_i(k)^\dagger A_i(k),
 \qquad
 c_i(k)=[b_i(k)b_i(-k)]^{1/8},
 \qquad
@@ -238,7 +238,7 @@ Proposition 2.29 in §2.2.2 gives a useful description of that broader scope. Fi
 
 ```math
 \rho_{DE}
-=(\operatorname{id}_D\otimes\Phi_{R\to E})
+=(\mathrm{id}_D\otimes\Phi_{R\to E})
 (|\psi\rangle\langle\psi|)
 ```
 
@@ -292,7 +292,7 @@ P(b\mid\theta)=\frac{I+(-1)^bM(\theta)}2.
 The matrix $`M(\theta)`$ is Hermitian and squares to the identity, so these effects are rank-one projectors. Each outcome is individually uniform on a device's marginal $`I/2`$. Multiplying the two matrices against the Bell state gives
 
 ```math
-\operatorname{Tr}[\rho_{D_1D_2}(M(\theta_1)\otimes M(\theta_2))]
+\mathrm{Tr}[\rho_{D_1D_2}(M(\theta_1)\otimes M(\theta_2))]
 =\cos(\theta_1+\theta_2).
 ```
 
@@ -327,7 +327,7 @@ Every individual bit has probability one half under either secret, yet the parit
 
 ```math
 \Omega_0^B-\Omega_1^B
-=\frac{\sqrt3}{4}\operatorname{diag}(1,-1,-1,1).
+=\frac{\sqrt3}{4}\mathrm{diag}(1,-1,-1,1).
 ```
 
 Consequently,

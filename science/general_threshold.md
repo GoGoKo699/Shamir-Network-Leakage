@@ -44,7 +44,7 @@ At $`t=n`$, interpret this expression by continuity, giving $`2^{1-n/4}`$. The s
 Let $`\rho_i`$ be the device marginal before local processing and define
 
 ```math
-b_i(k)=\operatorname{Tr}\!\left[\rho_i A_i(k)^\dagger A_i(k)\right],
+b_i(k)=\mathrm{Tr}\!\left[\rho_i A_i(k)^\dagger A_i(k)\right],
 \qquad
 c_i(k)=\left[b_i(k)b_i(-k)\right]^{1/8}.
 ```
@@ -231,7 +231,7 @@ The dilation and its local marginals are specified in [the network estimate](net
 ```math
 \Delta(s,s')\le
 \sum_{k\in C\setminus\{0\}}
-\left(\sum_{S\supseteq\operatorname{supp}k}|T_S(k)|^2\right)^{1/2}.
+\left(\sum_{S\supseteq\mathrm{supp}\,k}|T_S(k)|^2\right)^{1/2}.
 ```
 
 The choices to include or exclude a zero-frequency site now occur inside a square root. Thus

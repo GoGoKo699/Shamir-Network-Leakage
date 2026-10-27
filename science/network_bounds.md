@@ -38,7 +38,7 @@ The notation $`\rho_i`$ in the second-moment estimates below denotes the local m
 For the **arbitrary-reference model**, the requirement instead concerns the literal device marginal:
 
 ```math
-\Omega_D=\operatorname{Tr}_E\rho_{DE}
+\Omega_D=\mathrm{Tr}_E\rho_{DE}
 =\bigotimes_{e=\{i,j\}}\Omega_{D_{i,e}D_{j,e}},
 \qquad
 D_i=\bigotimes_{e\ni i}D_{i,e},
@@ -54,14 +54,14 @@ with independent local factors included if necessary. The state $`\rho_{DE}`$ ma
 Let $`\rho_G`$ be a tensor product of pure bipartite states on the edges of a graph with vertex set $`V`$. Let $`\rho_v`$ be its marginal at vertex $`v`$. For arbitrary complex operators $`K_v`$ on the vertex spaces,
 
 ```math
-\left|\operatorname{Tr}\!\left[\rho_G\bigotimes_{v\in V}K_v\right]\right|
+\left|\mathrm{Tr}\!\left[\rho_G\bigotimes_{v\in V}K_v\right]\right|
 \le
 \prod_{v\in V}
 \left\|\rho_v^{1/4}K_v\rho_v^{1/4}\right\|_2.
 \tag{2.1}
 ```
 
-Here $`\|X\|_2=(\operatorname{Tr}X^\dagger X)^{1/2}`$. No positivity or Hermiticity of $`K_v`$ is required.
+Here $`\|X\|_2=(\mathrm{Tr}\,X^\dagger X)^{1/2}`$. No positivity or Hermiticity of $`K_v`$ is required.
 
 **Proof.** Write each edge state in Schmidt form,
 
@@ -125,7 +125,7 @@ We will also use the elementary inequality, valid for every state $`\sigma`$ and
 
 ```math
 \left\|\sigma^{1/4}K\sigma^{1/4}\right\|_2^2
-\le\frac12\operatorname{Tr}\!\left[\sigma(K^\dagger K+KK^\dagger)\right].
+\le\frac12\mathrm{Tr}\!\left[\sigma(K^\dagger K+KK^\dagger)\right].
 \tag{2.4}
 ```
 
@@ -136,9 +136,9 @@ To verify it, diagonalize $`\sigma`$ with eigenvalues $`r_a`$. The left side is 
 Let $`\Omega_D`$ be an independent bipartite-source device state, with mixed sources allowed. For local effects $`0\le B_i\le I`$,
 
 ```math
-\operatorname{Tr}\!\left[\Omega_D\bigotimes_{i=1}^n B_i\right]
+\mathrm{Tr}\!\left[\Omega_D\bigotimes_{i=1}^n B_i\right]
 \le
-\prod_{i=1}^n\left(\operatorname{Tr}\Omega_{D_i}B_i\right)^{1/2}.
+\prod_{i=1}^n\left(\mathrm{Tr}\,\Omega_{D_i}B_i\right)^{1/2}.
 \tag{2.5}
 ```
 
@@ -146,8 +146,8 @@ Let $`\Omega_D`$ be an independent bipartite-source device state, with mixed sou
 
 ```math
 \left\|\Omega_{D_i}^{1/4}B_i\Omega_{D_i}^{1/4}\right\|_2^2
-\le\operatorname{Tr}\Omega_{D_i}B_i^2
-\le\operatorname{Tr}\Omega_{D_i}B_i.
+\le\mathrm{Tr}\,\Omega_{D_i}B_i^2
+\le\mathrm{Tr}\,\Omega_{D_i}B_i.
 ```
 
 This proves (2.5) in the pure-source case. For mixed sources, purify each source into an endpoint and extend each effect by the identity on the added registers. Both the joint event probability and every local expectation on the right side of (2.5) remain unchanged. Apply the pure-source result and then discard the added registers. $`\square`$
@@ -160,7 +160,7 @@ For a set $`S\subseteq[n]`$ and frequencies $`\mathbf k_S=(k_i:i\in S)`$, define
 
 ```math
 T_{S,E}(\mathbf k_S)
-=\operatorname{Tr}_D\!\left[
+=\mathrm{Tr}_D\!\left[
 \left(\bigotimes_{i\in S}A_i(k_i)
 \otimes I_{D_{[n]\setminus S}}\otimes I_E\right)\rho_{DE}
 \right].
@@ -196,7 +196,7 @@ If the dilation enlarged the adversary's space, the trace-norm estimate also hol
 ```math
 \|T_{S,E}(\mathbf k_S)\|_1
 =\max_{U_E:\,U_E^\dagger U_E=I}
-\left|\operatorname{Tr}\!\left[
+\left|\mathrm{Tr}\!\left[
 \rho_{DE}\left(
 \bigotimes_{i\in S}A_i(k_i)
 \otimes I_{D_{[n]\setminus S}}\otimes U_E
@@ -213,7 +213,7 @@ Equation (1.2) implies $`a_i(-k)=a_i(k)`$. Parseval in the Hilbert space of matr
 \sum_k a_i(k)^2
 &=\frac1p\sum_{x\in\mathbb F_p}
 \left\|\rho_i^{1/4}M_i(x)\rho_i^{1/4}\right\|_2^2\\
-&\le\frac1p\sum_{x\in\mathbb F_p}\operatorname{Tr}\rho_iM_i(x)^2
+&\le\frac1p\sum_{x\in\mathbb F_p}\mathrm{Tr}\,\rho_iM_i(x)^2
 \le1.
 \end{aligned}
 \tag{3.5}
@@ -230,7 +230,7 @@ The proposition permits arbitrary independent device-adversary edges and a colle
 Suppose $`\rho_{DE}`$ is any extension of the literal independent-source device marginal (1.3). Define
 
 ```math
-b_i(k)=\operatorname{Tr}\rho_iA_i(k)^\dagger A_i(k),
+b_i(k)=\mathrm{Tr}\,\rho_iA_i(k)^\dagger A_i(k),
 \qquad
 c_i(k)=\bigl[b_i(k)b_i(-k)\bigr]^{1/8},
 \qquad
@@ -261,9 +261,9 @@ For any unitary $`U_E`$, Cauchy-Schwarz for the state-weighted inner product giv
 
 ```math
 \begin{aligned}
-\left|\operatorname{Tr}\rho_{DE}(K\otimes U_E)\right|^2
-&\le\operatorname{Tr}\rho_{DE}(K^\dagger K\otimes U_E^\dagger U_E)\\
-&=\operatorname{Tr}\Omega_D K^\dagger K.
+\left|\mathrm{Tr}\,\rho_{DE}(K\otimes U_E)\right|^2
+&\le\mathrm{Tr}\,\rho_{DE}(K^\dagger K\otimes U_E^\dagger U_E)\\
+&=\mathrm{Tr}\,\Omega_D K^\dagger K.
 \end{aligned}
 \tag{4.3}
 ```
@@ -272,7 +272,7 @@ Taking the supremum over $`U_E`$ proves
 
 ```math
 \|T_{S,E}(\mathbf k_S)\|_1
-\le\left(\operatorname{Tr}\Omega_D K^\dagger K\right)^{1/2}.
+\le\left(\mathrm{Tr}\,\Omega_D K^\dagger K\right)^{1/2}.
 \tag{4.4}
 ```
 
@@ -289,8 +289,8 @@ The partial trace is cyclic with respect to an operator acting only on the syste
 ```math
 \begin{aligned}
 T_{S,E}(\mathbf k_S)^\dagger
-&=\operatorname{Tr}_D\!\left[\rho_{DE}(K^\dagger\otimes I_E)\right]\\
-&=\operatorname{Tr}_D\!\left[(K^\dagger\otimes I_E)\rho_{DE}\right]
+&=\mathrm{Tr}_D\!\left[\rho_{DE}(K^\dagger\otimes I_E)\right]\\
+&=\mathrm{Tr}_D\!\left[(K^\dagger\otimes I_E)\rho_{DE}\right]
 =T_{S,E}(-\mathbf k_S).
 \end{aligned}
 \tag{4.6}
@@ -310,7 +310,7 @@ Consequently,
 
 ```math
 \sum_k b_i(k)
-=\frac1p\sum_x\operatorname{Tr}\rho_iM_i(x)^2
+=\frac1p\sum_x\mathrm{Tr}\,\rho_iM_i(x)^2
 \le1.
 \tag{4.8}
 ```
