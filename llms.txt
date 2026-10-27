@@ -15,6 +15,9 @@ This repository studies information-theoretic secrecy of unchanged classical Sha
 - Primary-source comparison and precise inherited ingredients: references/RELATED_WORK.md
 - Structured bibliography: references/references.bib
 - Reproduction commands and interpretation: verification/README.md
+- Educational entry point and routes into the proofs: learning/README.md
+- The single Watrous anchor, verified sections, notation translation and a complete Bell-pair example: learning/WATROUS_BRIDGE.md
+- Exactly 30 project-defined understanding targets, dependencies and source pointers: learning/MILESTONES.md
 
 ## Distinctions to preserve
 
@@ -27,3 +30,5 @@ The general-threshold numbers are sufficient rates from explicit finite bounds. 
 Quantum Finner, the complex contraction, Shamir Fourier methods, paired frequencies, the MDS inequality and minimum-distance weighting are inherited ingredients. The added scientific conclusion is the scoped secrecy guarantee for dense overlapping independent-source networks. Use the related-work page for attribution and model comparisons.
 
 The written proofs establish uniform claims. Finite enumerations and numerical optimizations establish only the checks described in verification/README.md.
+
+Watrous, The Theory of Quantum Information (2018), is the sole educational anchor. The bridge distinguishes the inspected author manuscript from the published book and translates its full trace-norm distance to this repository's half-trace-norm convention. The 14 background milestones end with the full leakage experiment; the 16 narrative milestones end with the scientific synthesis. Research citations support attribution and proof dependencies beyond the anchor.
