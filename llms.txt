@@ -1,6 +1,6 @@
 # Shamir Network Leakage
 
-This repository studies information-theoretic secrecy of unchanged classical Shamir sharing against one classical leaked bit per device, assisted by independent bipartite quantum sources on arbitrary graphs. It includes an arbitrary external-reference guarantee and an exact even-device full-threshold optimum in a narrower reference model.
+This repository studies information-theoretic secrecy of unchanged classical Shamir sharing against one classical leaked bit per device, assisted by independent bipartite quantum sources on arbitrary graphs. For arbitrary extensions of the independent-source device marginal, it establishes the sharp leading secrecy exponent t/2 above reconstruction rate one half by a fixed margin, and an exact even-device full-threshold optimum.
 
 ## Reading routes
 
@@ -8,9 +8,9 @@ This repository studies information-theoretic secrecy of unchanged classical Sha
 - Connected scientific explanation and proof dependencies: science/README.md
 - Shares, quantum resources, classical flags, reference scopes and distance convention: science/model.md
 - Input Fourier expansion, dual MDS code and output-parity identities: science/fourier.md
-- Inherited complex graph contraction and second-/fourth-moment coefficient bounds: science/network_bounds.md
+- Inherited graph contraction, polar trace-norm reduction and support-only second-moment bounds: science/network_bounds.md
 - Full-threshold bounds, finite-prime cosine factor and matching attack: science/full_threshold.md
-- General-threshold finite bounds, optimization and sufficient asymptotic rates: science/general_threshold.md
+- General-threshold finite bounds, optimization and sharp leading exponent above one half: science/general_threshold.md
 - Coherent-purification counterexample, communication and source-graph distinction: science/boundaries.md
 - Primary-source comparison and precise inherited ingredients: references/RELATED_WORK.md
 - Structured bibliography: references/references.bib
@@ -23,11 +23,11 @@ This repository studies information-theoretic secrecy of unchanged classical Sha
 
 The public inputs and outputs are classical. Arbitrary local quantum processing does not mean quantum leaked outputs. The resource is independent of the secret and sharing randomness, and leakage occurs without communication or adversary feedback.
 
-An adversary that is another vertex of the independent bipartite-source graph has a different resource scope from an adversary holding an arbitrary extension of the product-source device marginal. Only the narrower scope has the exact even-device bound proportional to 2^(-n/2). The arbitrary-reference theorem supplies an upper bound proportional to 2^(-n/4), whose optimality is not established.
+An arbitrary extension of the stated product-source device marginal includes no reference or a separate source-graph reference vertex as special cases. At full threshold with even n the exact worst-case distance over the class is 2^(1-n/2) cos(pi/(2p)). The upper bound holds graphwise and a Bell-pair matching attains it. Odd n has a matching order.
 
-The general-threshold numbers are sufficient rates from explicit finite bounds. They are not optimal thresholds and are not improvements over all classical leakage rates. An actual classical seed is treated branchwise; coherent purification of an unlabelled mixture is a different resource.
+The sharp leading exponent applies at a fixed positive margin above rate one half; the security transition at and below one half remains open in this model. Explicit elementary finite bounds use q=n/(n-t+1) at least 2. An actual classical seed is treated branchwise; coherent purification of an unlabelled mixture is a different resource.
 
-Quantum Finner, the complex contraction, Shamir Fourier methods, paired frequencies, the MDS inequality and minimum-distance weighting are inherited ingredients. The added scientific conclusion is the scoped secrecy guarantee for dense overlapping independent-source networks. Use the related-work page for attribution and model comparisons.
+Quantum Finner, the complex contraction, Shamir Fourier methods, paired frequencies, MDS weighting and weighted list-recovery methods are inherited. The reference reduction sums the positive inactive outcomes before applying quantum Finner, and gives one weighted factor per nonzero coordinate on every independent-source graph. Use the related-work page for attribution and model comparisons.
 
 The written proofs establish uniform claims. Finite enumerations and numerical optimizations establish only the checks described in verification/README.md.
 

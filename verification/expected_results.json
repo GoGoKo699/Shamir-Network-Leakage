@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "matching_born_enumeration": [
     {
       "n": 2,
@@ -41,6 +41,44 @@
       "exact_formula": 0.2437319780454559
     }
   ],
+  "odd_reconstruction_set_enumeration": [
+    {
+      "n": 5,
+      "t": 3,
+      "p": 7,
+      "secrets": [
+        0,
+        1
+      ],
+      "reconstruction_points": [
+        5,
+        1,
+        2
+      ],
+      "singleton_coefficient": 0.6419941724907049,
+      "direct_total_variation": 0.6258980382192602,
+      "witness_formula": 0.6258980382192605
+    },
+    {
+      "n": 6,
+      "t": 5,
+      "p": 7,
+      "secrets": [
+        2,
+        5
+      ],
+      "reconstruction_points": [
+        6,
+        1,
+        2,
+        3,
+        4
+      ],
+      "singleton_coefficient": 0.6419941724907049,
+      "direct_total_variation": 0.3129490191096302,
+      "witness_formula": 0.31294901910963024
+    }
+  ],
   "exact_shamir_fourier": [
     {
       "n": 4,
@@ -67,57 +105,45 @@
       "direct_total_variation_fraction": "2/7"
     }
   ],
-  "bound_optimization": {
-    "finite_arbitrary_reference": [
-      {
-        "n": 40,
-        "t": 37,
-        "q": 10.0,
-        "numerical_log2_bound": -1.012753823494016,
-        "closed_log2_bound": -1.0127538234940126,
-        "simple_log2_bound": 0.0898500028846243
-      },
-      {
-        "n": 100,
-        "t": 95,
-        "q": 16.666666666666668,
-        "numerical_log2_bound": -11.331618257304285,
-        "closed_log2_bound": -11.331618257304262,
-        "simple_log2_bound": -9.240224995673064
-      },
-      {
-        "n": 1000,
-        "t": 950,
-        "q": 19.607843137254903,
-        "numerical_log2_bound": -124.44375518708603,
-        "closed_log2_bound": -124.44375518708623,
-        "simple_log2_bound": -106.66691246322104
-      }
-    ],
-    "finite_no_reference": [
-      {
-        "n": 10,
-        "t": 6,
-        "q": 2.0,
-        "active_optimizer": "stationary",
-        "numerical_log2_bound": 4.854752972273342,
-        "closed_log2_bound": 4.854752972273342
-      },
-      {
-        "n": 40,
-        "t": 35,
-        "q": 6.666666666666667,
-        "active_optimizer": "crossing",
-        "numerical_log2_bound": -8.958607689135697,
-        "closed_log2_bound": -8.958607689135697
-      }
-    ],
-    "reference_sufficient_rate_numerical": 0.9042045924785356,
-    "reference_sufficient_rate_closed": 0.9042045924785356,
-    "scalar_sufficient_rate_numerical": 0.7569352555764817,
-    "scalar_sufficient_rate_closed": 0.7569352555764817,
-    "interpretation": "sufficient rates from stated bounds; not optimal security thresholds"
+  "triangle_support_only_reference": {
+    "n": 3,
+    "t": 2,
+    "p": 5,
+    "nonzero_dual_words_checked": 24,
+    "nonvanishing_proper_support_terms": 4,
+    "direct_cq_trace_distance": 0.17423521183524027,
+    "leaked_bits_only_distance": 0.013819660112501067,
+    "phase_weighted_support_only_majorant": 0.9078943658814155
   },
+  "support_only_bound_optimization": [
+    {
+      "n": 10,
+      "t": 6,
+      "q": 2.0,
+      "relaxed_numerical_log2_bound": 4.854752972273342,
+      "relaxed_closed_log2_bound": 4.854752972273342,
+      "zero_word_subtracted_at_relaxed_optimizer_log2_bound": 4.839903616686108,
+      "lambda_sqrt_two_log2_bound": 4.918863237274595
+    },
+    {
+      "n": 40,
+      "t": 37,
+      "q": 10.0,
+      "relaxed_numerical_log2_bound": -13.262753823494014,
+      "relaxed_closed_log2_bound": -13.262753823494013,
+      "zero_word_subtracted_at_relaxed_optimizer_log2_bound": -13.262799471988515,
+      "lambda_sqrt_two_log2_bound": -12.178071905112638
+    },
+    {
+      "n": 1000,
+      "t": 950,
+      "q": 19.607843137254903,
+      "relaxed_numerical_log2_bound": -411.94375518708637,
+      "relaxed_closed_log2_bound": -411.94375518708625,
+      "zero_word_subtracted_at_relaxed_optimizer_log2_bound": -411.94375518708637,
+      "lambda_sqrt_two_log2_bound": -394.166912463221
+    }
+  ],
   "coherent_mixture_boundary": {
     "n": 5,
     "p": 7,
@@ -131,6 +157,6 @@
     "classically_flagged_cq_trace_distance": 0.0,
     "reference_without_bits_trace_distance": 0.0,
     "counterexample_formula": 0.9749279121818236,
-    "inapplicable_product_marginal_bound": 0.8198133864844837
+    "inapplicable_product_marginal_bound": 0.34468906893590523
   }
 }

@@ -2,7 +2,7 @@
 
 Shamir sharing hides a classical secret by distributing correlated shares. Ordinary threshold privacy describes an adversary who sees some entire shares and none of the others. Local leakage asks a different question: what can be learned when **every** device emits a short function of its own share? Here the function is implemented by a quantum device that may hold entanglement with other devices and with the adversary.
 
-This project studies one classical leaked bit per device. The quantum resource is supplied by independent sources connecting pairs of devices. A device may combine all of its incident systems in an arbitrary local measurement. The source graph may be complete. The central conclusion is an exponentially small chosen-secret distance at sufficiently high reconstruction rates, uniformly in the graph and all finite quantum dimensions.
+This project studies one classical leaked bit per device. The quantum resource is supplied by independent sources connecting pairs of devices. A device may combine all of its incident systems in an arbitrary local measurement. The source graph may be complete. The sharp leading exponent for the worst-case chosen-secret distance is half the reconstruction threshold, at every rate a fixed margin above one half. The upper bound is uniform in the graph and all finite quantum dimensions.
 
 ## 1. Shares and public parameters
 
@@ -37,13 +37,13 @@ The product condition describes the state **before local processing**. Any local
 
 | Scope | State supplied before local processing | Security conclusion |
 |---|---|---|
-| No external reference | The device state is the product above; the adversary receives only leaked bits | The stronger second-moment bounds apply |
-| Reference as a graph vertex | Independent bipartite sources lie on a graph with vertices $`D_1,\ldots,D_n,E`$; no additional purifying system is available outside that graph | The same sharp full-threshold bound applies |
-| Arbitrary extension | The device marginal has the product form above, and $`\rho_{DE}`$ is **any** extension of that marginal | The fourth-moment bounds apply, including the general-threshold theorem |
+| No external reference | The device state is the product above; the adversary receives only leaked bits | Covered by the second-moment bounds |
+| Reference as a graph vertex | Independent bipartite sources lie on a graph with vertices $`D_1,\ldots,D_n,E`$; no additional purifying system is available outside that graph | Covered by the same bounds |
+| Arbitrary extension | The device marginal has the product form above, and $`\rho_{DE}`$ is **any** extension of that marginal | The support-only second-moment bound covers this full model |
 
 The last scope includes giving the adversary the purifications of all device-device sources and allowing arbitrary joint processing of those purifying registers. More generally, every extension of the fixed marginal can be obtained by a channel on a purification. The source states need not remain independent when conditioned on an adversary measurement outcome. The proofs bound the complete final state, including that outcome, without conditioning away its probability.
 
-The graph-vertex scope is a subclass of the arbitrary-extension scope: tracing out its reference vertex leaves independent local marginal factors from the device-reference edges, together with the device-device sources. Its additional structure permits a stronger bound.
+The graph-vertex scope is a subclass of the arbitrary-extension scope: tracing out its reference vertex leaves independent local marginal factors from the device-reference edges, together with the device-device sources. All three scopes have the same sharp leading exponent over admissible graphs, and the same exact value at even full threshold.
 
 ### Classical shared choices
 
@@ -111,6 +111,6 @@ A statement $`\Delta\le2^{-cn}`$ uniformly over every pair of secrets and every 
 
 The [Fourier account](fourier.md) identifies the secret-dependent coefficients. The [network estimates](network_bounds.md) control each coefficient from the resource structure. At [full threshold](full_threshold.md), only one output parity can depend on the secret. The [general-threshold proof](general_threshold.md) sums the remaining coefficients over the dual code.
 
-The reference-secure sufficient rate is about $`0.904205`$, while the no-reference argument gives about $`0.756935`$. These values describe proved sufficient regimes, not optimal security thresholds. Exact optimality is established for even $`n`$ at full threshold in the no-reference and graph-vertex scopes.
+For every fixed positive margin above reconstruction rate one half, the upper and lower bounds give the same leading base-two exponent $`t/2`$ with an additive logarithmic error in $`n`$. When $`t=n`$ and $`n`$ is even, the optimum is exact for each prime and chosen secret pair. The fixed-margin result leaves the security transition at or below one half open.
 
 **Next:** [Fourier structure of the shares and leaked bits](fourier.md).

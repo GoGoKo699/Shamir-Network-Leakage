@@ -1,23 +1,23 @@
 # Related work and attribution
 
-The result studied here concerns **one classical bit of local leakage from each share of the unchanged Shamir scheme**, when the devices use independent bipartite quantum sources on an arbitrary graph. The graph, source dimensions, and local dimensions are unrestricted. The security statements distinguish an adversary who is another vertex of that source graph from an adversary holding an arbitrary extension of the specified device marginal. These are different reference models.
+The result concerns **one classical bit of local leakage from each share of the unchanged Shamir scheme**. Independent bipartite quantum sources may connect any pair of devices. The adversary may hold any finite extension of the resulting device marginal.
 
-The analytical ingredients below have direct predecessors. The additional conclusion is a trace-distance secrecy guarantee for this network leakage model, uniform in the graph and prime field, together with the exact full-threshold value for even numbers of devices in the source-graph reference model. See the [scientific overview](../README.md) for the precise theorem scopes.
+The [support-only Fourier bound](../science/network_bounds.md#4-second-moments-with-an-arbitrary-external-reference) lets existing weighted code estimates apply at every fixed reconstruction rate above one half. Over all permitted graphs and extensions, the leading exponent is half the reconstruction threshold. The Bell-pair matching gives the exact even-size value when reconstruction requires every share.
 
 ## Local leakage from Shamir sharing
 
 [Shamir's construction](https://doi.org/10.1145/359168.359176) supplies the sharing scheme; it is not modified here. [Benhamouda, Degwekar, Ishai, and Rabin](https://eprint.iacr.org/2019/653) established local leakage resilience for additive sharing and high-threshold Shamir sharing over suitable prime fields using Fourier analysis and additive combinatorics. The linked ePrint's 18 April 2023 revision is the version published in *Journal of Cryptology* 34, article 10 (2021).
 
-Classical local leakage has subsequently reached substantially smaller threshold rates. For example, [Sun and Wootters, arXiv:2610.12357v1](https://arxiv.org/abs/2610.12357v1), prove one-bit local leakage resilience at a threshold rate below one half by an absolute constant. The larger sufficient rates in this repository address a stronger correlated quantum adversary; they are not improvements to the classical threshold rate.
+Classical local leakage has subsequently reached substantially smaller threshold rates. For example, [Sun and Wootters, arXiv:2610.12357v2](https://arxiv.org/abs/2610.12357v2), prove one-bit local leakage resilience below one half by an absolute constant. [Zhang, Wang, and Kong, arXiv:2611.12325](https://arxiv.org/abs/2611.12325), give the explicit classical sufficient rate 0.489. Those results concern classical local leakage. The source-network result here permits quantum-assisted devices and arbitrary quantum side information.
 
 ### The closest quantum leakage results
 
 | Source | Resource and output model | Relevant result and comparison |
 |---|---|---|
 | [Batra, Kitagawa, Nishimaki, and Yamakawa, arXiv:2609.37276v1](https://arxiv.org/abs/2609.37276v1) | One-qubit leakage without prior entanglement; more generally, disjoint bounded entangled blocks without an outside reference. A separate reduction permits an identified entangled support. | Sections 3–5 use Fourier analysis and dual MDS codes. Sections 6.1–6.2 reveal the identified support. Section 6.3, Theorem 18, gives a constant-advantage classical-bit attack using a GHZ resource on a reconstruction set. Overlapping source graphs of unbounded degree do not form bounded disjoint blocks. |
-| [Essayag and Zabokritskiy, arXiv:2610.06350v1](https://arxiv.org/abs/2610.06350v1) | One-qubit or classical-bit leakage with finite references; correlated chains, quantum memories, and source-network applications. | Section 7.1 selects an **integral independent vertex set** and reveals its complement. Corollary 7.1 gives a constant-rate security interval when that set has linear size. A complete graph has only a singleton such set. Here the classical-bit network bound remains exponential on complete graphs. |
+| [Essayag and Zabokritskiy, arXiv:2610.06350v2](https://arxiv.org/abs/2610.06350v2) | One-qubit or classical-bit leakage with finite references; correlated chains, quantum memories, and source-network applications. | Supplement S7.1 selects an **integral independent vertex set** and reveals its complement. Corollary S7.1 uses an independent set of linear size for a constant-rate guarantee. The one-bit result here covers complete source graphs, whose maximum independent set is a singleton. |
 
-The second paper's independent device–reference theorem has the sharp full-threshold exponential base $2/\pi$ for a classical bit, with arbitrary finite references; the present network bounds do not improve that special case. Its quantum-output and correlated-memory results also have scopes beyond this repository. The comparison is therefore between specific resource/output models, rather than a model-wide domination claim.
+The independent device–reference theorem in Essayag and Zabokritskiy has sharp base $``2/\pi``$ per required share for a classical bit. The broader source network studied here has base $``1/\sqrt2``$, attained by entangling pairs of leakage devices. The same paper treats quantum outputs and correlated memories under other hypotheses.
 
 The distinction from a GHZ resource is substantive. The GHZ attack is already established by Batra and coauthors, using the phase-accumulation method of [Buhrman, van Dam, Høyer, and Tapp](https://doi.org/10.1103/PhysRevA.60.2737). The Bell-pair construction here uses the same equatorial measurement algebra to attain a different, source-restricted optimum. No new GHZ attack or phase-accumulation principle is claimed.
 
@@ -31,13 +31,13 @@ The all-half-weight case applies to every source graph. Schmidt expansion follow
 
 ### Fourier analysis and opposite frequencies
 
-The translation from Shamir cosets to sums over a dual MDS code follows the established leakage approach. The matrix-valued version and block estimates are explicit in Batra and coauthors, Sections 3–5. Essayag and Zabokritskiy, Lemmas 3.1–3.2, explicitly exploit opposite Fourier frequencies to sharpen moment bounds. Pairing a frequency with its negative is therefore also an inherited idea.
+The translation from Shamir cosets to sums over a dual MDS code follows the established leakage approach. The matrix-valued version and block estimates are explicit in Batra and coauthors, Sections 3–5. Essayag and Zabokritskiy’s paired-moment bounds in Supplement S1 explicitly exploit opposite Fourier frequencies. Pairing a frequency with its negative is therefore also an inherited idea.
 
-Here a binary POVM gives a Hermitian contraction at each device. Combining its paired Fourier budget with the network contraction yields a second-moment bound in the source-graph reference model. Trace-norm duality, state Cauchy–Schwarz, and event Finner instead yield a fourth-moment budget under an arbitrary reference. The secret-dependent output-parity calculation connects these budgets to the stated secrecy bounds.
+Here a binary POVM gives a Hermitian contraction at each device. A polar trace-norm bound leaves two expectations of positive product observables. Summing the inactive outcomes in those expectations removes their effects by completeness. Applying positive quantum Finner after that sum produces a second-moment weight on each nonzero coordinate, even with an arbitrary reference.
 
 ### The MDS inequality and minimum-distance weighting
 
-For an MDS code $C$ of length $n$ and dimension $k$, [Horinaga and Yamakawa, arXiv:2607.14650v2](https://arxiv.org/abs/2607.14650v2), Theorem 3.1, prove the inequality
+For an MDS code $`C`$ of length $`n`$ and dimension $`k`$, [Horinaga and Yamakawa, arXiv:2607.14650v2](https://arxiv.org/abs/2607.14650v2), Theorem 3.1, prove the inequality
 
 ```math
 \sum_{a\in C}\prod_{i=1}^n h_i(a_i)
@@ -47,9 +47,13 @@ For an MDS code $C$ of length $n$ and dimension $k$, [Horinaga and Yamakawa, arX
 \qquad (h_i\ge0).
 ```
 
-Their Fourier-bias analysis also introduces a weight parameter to exploit the dual code's minimum distance. Batra and coauthors, Lemma 4, give a block version. Essayag and Zabokritskiy, Lemma 3.4, present the singleton inequality with the elementary proof obtained by applying Hölder to all $k$-coordinate projections. The proof and weighting argument used here are included for completeness and are not new inequalities.
+Their Fourier-bias analysis introduces a weight parameter to exploit the dual code’s minimum distance. Batra and coauthors, Lemma 4, give a block version. Essayag and Zabokritskiy give related block and weighted estimates in version 2, Supplement S5.1. The proof and weighting argument used here are included for completeness and are not new inequalities.
 
 Horinaga–Yamakawa v2, revised 22 October 2026, treats optimal polynomial intersection and Max-LINSAT with quantum membership-oracle access. Its subsequent-work discussion credits Batra and coauthors for quantum leakage applications. It does not state a security theorem for independent entanglement-source networks.
+
+### List recovery and the sharp exponent
+
+[Sun and Wootters](https://arxiv.org/abs/2610.12357v2) use weighted dual-code sums in local leakage. [Essayag and Zabokritskiy v2](https://arxiv.org/abs/2610.06350v2), Lemma 3.5, state the weighted estimate for generalized Reed–Solomon codes and use it for independent device–reference pairs. Its field-uniform polynomial factor comes from [Jeronimo, Theorem 1.1 and Corollary 8.1](https://eccc.weizmann.ac.il/report/2026/169/). The [general-threshold proof](../science/general_threshold.md#2-sharp-exponent-above-one-half) gives the singleton specialization with one Fourier factor per active coordinate. The dense-network conclusion depends on the reference-valued coefficient reduction and the Bell-pair construction.
 
 ## Other network and XOR-game results
 
@@ -63,7 +67,7 @@ That preparation result bounds a quantum output's GHZ fidelity under charged cla
 
 The arbitrary-reference theorem assumes that the specified device marginal has the declared independent bipartite-source form. This is stronger than saying that a state is a mixture of such marginals with an arbitrary coherent purification. Classical seeds are handled by conditioning on actual classical branches in which the source hypothesis holds.
 
-The exact even-device optimum uses the narrower source-graph reference model, including the case without a reference. Its value is not asserted to be optimal for arbitrary purifying references. Nor does the one-bit theorem cover emitted qubits, adaptive feedback, free LOCC preprocessing, or repeated leakage from a stored share. These distinctions keep the comparisons at the same security and resource level.
+The exact even-device optimum admits the full arbitrary-extension model. It concerns a single noninteractive episode with one classical bit per share. Emitted qubits, adaptive feedback, communicating preparation, and repeated leakage define other experiments.
 
 ## Source versions
 
@@ -72,8 +76,11 @@ The bibliography is in [references.bib](references.bib). The source versions use
 | Key | Version and precise passage |
 |---|---|
 | `BatraEtAl2026` | arXiv:2609.37276v1, 29 September 2026; Sections 3–6, Lemma 4, and Section 6.3, Theorem 18. |
-| `EssayagZabokritskiy2026` | arXiv:2610.06350v1, 5 October 2026; Lemmas 3.1–3.4, Corollary 4.3, Section 7.1 and Corollary 7.1. |
+| `EssayagZabokritskiy2026` | arXiv:2610.06350v2, 4 November 2026. Lemma 3.5, Corollary 4.3, Supplements S1, S5.1, and S7.1. |
 | `HorinagaYamakawa2026` | arXiv:2607.14650v2, 22 October 2026; Theorem 3.1, Fourier-bias weighting, Sections 1.3–1.4. |
+| `SunWootters2026` | arXiv:2610.12357v2. Weighted code counting and classical local leakage. |
+| `Jeronimo2026` | ECCC TR26-169. Theorem 1.1 and Corollary 8.1. |
+| `ZhangWangKong2026` | arXiv:2611.12325. Explicit classical one-bit threshold from the abstract. |
 | `RenouEtAl2019` | *Physical Review Letters* 123, 070403 (2019); author version arXiv:1901.08287v1, Theorem 2 and Appendix D. |
 | `BrietEtAl2013` | *Quantum Information and Computation* 13(3–4), 334–360 (2013); Theorem 2, p. 337. The journal manuscript was revised 26 November 2012; the earlier arXiv:0911.4007v1 has a different title. |
 | `LinGHZ2026` | Public research notes at commit `99bd0004bcd1b395d27bff9b092db64dc0672c24`; branch-bound B2–B4 and communication-converse C4. |

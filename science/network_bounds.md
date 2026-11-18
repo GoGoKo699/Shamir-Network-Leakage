@@ -1,6 +1,6 @@
 # Fourier bounds for independent bipartite-source networks
 
-This page establishes the network estimates used in the [full-threshold theorem](full_threshold.md) and the [general-threshold theorem](general_threshold.md). The two estimates have different reference-system assumptions. A network whose vertices consist of the devices and, optionally, an adversary has a second-moment bound. An arbitrary extension of an independent-source **device marginal** has a fourth-moment bound. Keeping these statements separate is essential: an adversary-held purification of a mixed device-device source does not generally fit the first model.
+This page derives the support-only Fourier estimate used for [general reconstruction thresholds](general_threshold.md) and the coefficient bound used at [full threshold](full_threshold.md). Both are controlled by second moments of local Fourier operators. They allow an arbitrary quantum extension of the literal independent-source device marginal, including an adversary who holds all source purifications.
 
 The graph contraction below is an inherited ingredient. Its complex-operator form is the Schmidt tensor contraction used in [GHZ-Communication-Cost, Section B3, in the proof of Theorem B1](https://github.com/GoGoKo699/GHZ-Communication-Cost/blob/99bd0004bcd1b395d27bff9b092db64dc0672c24/science/branch-bound.md). The positive-effect consequence is the quantum Finner inequality of [Renou et al., *Limits on correlations in networks for quantum and no-signaling resources*, Theorem 2 and Appendix D](https://arxiv.org/abs/1901.08287), also published as [Physical Review Letters 123, 070403 (2019)](https://doi.org/10.1103/PhysRevLett.123.070403). We give complete proofs of the forms needed here, including the passage from scalar contractions to operator-valued Fourier coefficients.
 
@@ -45,7 +45,7 @@ D_i=\bigotimes_{e\ni i}D_{i,e},
 \tag{1.3}
 ```
 
-with independent local factors included if necessary. The state $`\rho_{DE}`$ may be any extension of $`\Omega_D`$. In particular, $`E`$ can purify device-device sources and can contain correlations across the source references. In the fourth-moment estimates, $`\rho_i=\Omega_{D_i}`$ is the original device marginal; no choice of purification is needed to define it. The operational restrictions and the treatment of genuinely classical shared randomness are stated in [the model](model.md).
+with independent local factors included if necessary. The state $`\rho_{DE}`$ may be any extension of $`\Omega_D`$. In particular, $`E`$ can purify device-device sources and can contain correlations across the source references. In Section 4, $`\rho_i=\Omega_{D_i}`$ is the original device marginal; no choice of purification is needed to define it. The operational restrictions and the treatment of genuinely classical shared randomness are stated in [the model](model.md).
 
 ## 2. Complex contraction on a graph
 
@@ -142,17 +142,16 @@ Let $`\Omega_D`$ be an independent bipartite-source device state, with mixed sou
 \tag{2.5}
 ```
 
-**Proof.** First suppose all sources and private ancillas are pure. Apply (2.1) with $`K_i=B_i`$. Equation (2.4) and $`B_i^2\le B_i`$ imply
+For positive local operators $`L_i`$, the squared-observable form is
 
 ```math
-\left\|\Omega_{D_i}^{1/4}B_i\Omega_{D_i}^{1/4}\right\|_2^2
-\le\mathrm{Tr}\,\Omega_{D_i}B_i^2
-\le\mathrm{Tr}\,\Omega_{D_i}B_i.
+\mathrm{Tr}\!\left[\Omega_D\bigotimes_{i=1}^n L_i\right]
+\le
+\prod_{i=1}^n\left(\mathrm{Tr}\,\Omega_{D_i}L_i^2\right)^{1/2}.
+\tag{2.6}
 ```
 
-This proves (2.5) in the pure-source case. For mixed sources, purify each source into an endpoint and extend each effect by the identity on the added registers. Both the joint event probability and every local expectation on the right side of (2.5) remain unchanged. Apply the pure-source result and then discard the added registers. $`\square`$
-
-Equation (2.5) is an event-probability statement: $`B_i`$ is the accepting effect of a binary POVM. This distinction matters in the fourth-moment argument. Applying a moment inequality to the value of an observable is a different operation and need not give the same right side.
+**Proof.** For pure sources, apply (2.1) and then (2.4) to each positive $`L_i`$. Since $`L_i^\dagger=L_i`$, the local bound in (2.4) is $`\mathrm{Tr}(\Omega_{D_i}L_i^2)`$. For mixed sources, purify each source into an endpoint and extend each operator by identity. The joint expectation and every local expectation of a squared operator remain unchanged. Applying the pure-source result to this calculation proves (2.6). The event form (2.5) follows from $`B_i^2\le B_i`$. $`\square`$
 
 ## 3. Second moments and graph-vertex references
 
@@ -221,114 +220,124 @@ Equation (1.2) implies $`a_i(-k)=a_i(k)`$. Parseval in the Hilbert space of matr
 
 This proves all parts of (3.3). $`\square`$
 
-The proposition permits arbitrary independent device-adversary edges and a collective adversary measurement. It does not permit attaching $`E`$ as a third party to a device-device source. The latter case requires the following estimate.
+The proposition permits arbitrary independent device-adversary edges and a collective adversary measurement. The next section uses a different argument that also allows purifications of device-device sources at an external reference.
 
-## 4. Fourth moments with an arbitrary external reference
+## 4. Second moments with an arbitrary external reference
 
-### Proposition 4.1: symmetric fourth-moment majorants
-
-Suppose $`\rho_{DE}`$ is any extension of the literal independent-source device marginal (1.3). Define
+For this section let $`\rho_{DE}`$ be any extension of the literal independent-source device marginal (1.3). For a device operator $`K`$, write
 
 ```math
-b_i(k)=\mathrm{Tr}\,\rho_iA_i(k)^\dagger A_i(k),
+\mathcal T(K)=\mathrm{Tr}_D[(K\otimes I_E)\rho_{DE}],
 \qquad
-c_i(k)=\bigl[b_i(k)b_i(-k)\bigr]^{1/8},
-\qquad
-\rho_i=\Omega_{D_i}.
+|K|=(K^\dagger K)^{1/2}.
+```
+
+### Lemma 4.1: trace-norm bound from the device marginal
+
+For any device operator $`K`$,
+
+```math
+\|\mathcal T(K)\|_1
+\le
+\left[\mathrm{Tr}(\Omega_D|K^\dagger|)
+      \mathrm{Tr}(\Omega_D|K|)\right]^{1/2}.
 \tag{4.1}
 ```
 
-Then, for every $`S\subseteq[n]`$ and $`\mathbf k_S`$,
+**Proof.** Extend the polar factor of $`K`$ to a unitary $`U`$ on the finite-dimensional device space. Then $`K=|K^\dagger|^{1/2}U|K|^{1/2}`$. In the trace-norm dual formula, test $`\mathcal T(K)`$ against an arbitrary unitary $`V_E`$. The resulting expectation is $`\mathrm{Tr}(\rho_{DE}X^\dagger Y)`$ with
 
 ```math
-\|T_{S,E}(\mathbf k_S)\|_1\le\prod_{i\in S}c_i(k_i),
+X=|K^\dagger|^{1/2}\otimes I_E,
 \qquad
-c_i(-k)=c_i(k),
+Y=(U\otimes V_E)(|K|^{1/2}\otimes I_E).
+```
+
+State-weighted Cauchy–Schwarz bounds its modulus by the product of the two weighted norms. Their squares are $`\mathrm{Tr}(\Omega_D|K^\dagger|)`$ and $`\mathrm{Tr}(\Omega_D|K|)`$. The bound is independent of $`V_E`$. Taking the supremum proves (4.1), including for singular device marginals. $`\square`$
+
+### Proposition 4.2: the support-only Fourier bound
+
+Define
+
+```math
+b_i(z)=\mathrm{Tr}\!\left[\rho_i A_i(z)^\dagger A_i(z)\right],
 \qquad
-\sum_{k\in\mathbb F_p}c_i(k)^4\le1.
+h_i(z)=\left[b_i(z)b_i(-z)\right]^{1/4},
+\qquad
+\rho_i=\Omega_{D_i}.
 \tag{4.2}
 ```
 
-There is no bound on the dimension of $`E`$, and no source-factorization assumption is made on the extension itself.
-
-**Proof.** Put
+Then $`h_i(-z)=h_i(z)`$, $`\sum_z h_i(z)^2\le 1`$, and $`h_i(z)\le 1/\sqrt{2}`$ for every nonzero $`z`$. In particular, the reference-valued coefficients of (3.1) satisfy
 
 ```math
-K=\bigotimes_{i\in S}A_i(k_i)\otimes I_{D_{[n]\setminus S}}.
-```
-
-For any unitary $`U_E`$, Cauchy-Schwarz for the state-weighted inner product gives
-
-```math
-\begin{aligned}
-\left|\mathrm{Tr}\,\rho_{DE}(K\otimes U_E)\right|^2
-&\le\mathrm{Tr}\,\rho_{DE}(K^\dagger K\otimes U_E^\dagger U_E)\\
-&=\mathrm{Tr}\,\Omega_D K^\dagger K.
-\end{aligned}
+\|T_{S,E}(\mathbf k_S)\|_1
+\le \prod_{i\in S}h_i(k_i).
 \tag{4.3}
 ```
 
-Taking the supremum over $`U_E`$ proves
+There is also a support-only estimate for the complete bit-outcome record. Set $`\widehat P_i(b_i,z)=p^{-1}\sum_x\omega^{-zx}P_i(b_i\mid x)`$ and define the reference coefficient on the outcome block $`b`$ by
 
 ```math
-\|T_{S,E}(\mathbf k_S)\|_1
-\le\left(\mathrm{Tr}\,\Omega_D K^\dagger K\right)^{1/2}.
+R_b(k)=\mathcal T\!\left(\bigotimes_i\widehat P_i(b_i,k_i)\right).
+```
+
+For any frequency word $`k\in\mathbb F_p^n`$, let $`S=\{i:k_i\ne0\}`$. Then
+
+```math
+\sum_{b\in\{0,1\}^n}\|R_b(k)\|_1
+\le\prod_{i\in S} h_i(k_i).
 \tag{4.4}
 ```
 
-By (1.2), each $`A_i(k_i)^\dagger A_i(k_i)`$ is a valid effect. Apply (2.5) to these effects, with the identity at devices outside $`S`$. It follows that
+**Proof.** For (4.3), apply (4.1) to the operator product in (3.1). Its positive moduli factor as tensor products of the local moduli. Apply the squared-observable form (2.6) to both factors on the right of (4.1). The local squared expectations are $`b_i(k_i)`$ and $`b_i(-k_i)`$ because $`A_i(-z)=A_i(z)^\dagger`$. Operator Parseval gives
 
 ```math
-\|T_{S,E}(\mathbf k_S)\|_1
-\le\prod_{i\in S}b_i(k_i)^{1/4}.
+\sum_z b_i(z)=\frac1p\sum_{x\in\mathbb F_p}\mathrm{Tr}(\rho_i M_i(x)^2)\le1.
+```
+
+Cauchy–Schwarz gives $`\sum_z\sqrt{b_i(z)b_i(-z)}\le1`$. The weights $`h_i`$ are symmetric by definition, and a nonzero frequency and its negative are distinct for odd $`p`$. Their equal squared contributions give the cap $`1/\sqrt 2`$.
+
+For (4.4), write $`B_i(b_i)=\widehat P_i(b_i,0)`$. These average effects are positive and sum to identity over $`b_i`$. At a nonzero frequency, $`\widehat P_i(b_i,z)=(-1)^{b_i}A_i(z)/2`$. Thus the outcome-block operator is a sign times $`2^{-|S|}\mathcal T(K_b)`$, where
+
+```math
+K_b=\bigotimes_{i\in S}A_i(k_i)\otimes\bigotimes_{i\notin S}B_i(b_i).
+```
+
+Summation over the bits at nonzero-frequency sites cancels $`2^{-|S|}`$. At the remaining sites, both positive moduli of $`K_b`$ include the factors $`B_i(b_i)`$. After applying (4.1), use scalar Cauchy–Schwarz over these remaining outcomes:
+
+```math
+\sum_{b_{S^c}}
+\left[\mathrm{Tr}(\Omega_D|K_b^\dagger|)
+       \mathrm{Tr}(\Omega_D|K_b|)\right]^{1/2}
+\le
+\left[
+\left(\sum_{b_{S^c}}\mathrm{Tr}(\Omega_D|K_b^\dagger|)\right)
+\left(\sum_{b_{S^c}}\mathrm{Tr}(\Omega_D|K_b|)\right)
+\right]^{1/2}.
+```
+
+In each trace sum, $`\sum_{b_i}B_i(b_i)=I_{D_i}`$ removes the zero-frequency factors. The two remaining positive products are the ones bounded by (2.6) in the proof of (4.3). This proves (4.4). $`\square`$
+
+When the shares are uniform on $`s\mathbf 1+C_0`$, the [sharing-character identity](fourier.md#1-the-sharing-coset-and-its-dual-code) gives the block difference
+
+```math
+\sum_{k\in C\setminus\{0\}}
+  (\omega^{s\sum_i k_i}-\omega^{s'\sum_i k_i})R_b(k),
+\qquad C=C_0^\perp.
+```
+
+The trace norm adds over classical blocks. Taking the triangle inequality over codewords and using (4.4) gives
+
+```math
+\Delta(s,s')
+\le\cos\!\left(\frac{\pi}{2p}\right)
+\sum_{k\in C\setminus\{0\}}\prod_{i:k_i\ne0}h_i(k_i).
 \tag{4.5}
 ```
 
-The partial trace is cyclic with respect to an operator acting only on the systems being traced out. Together with (1.2), this gives
+The factor $`\cos(\pi/(2p))`$ bounds half the phase difference for every residue in an odd field. Each zero-frequency site contributes one to (4.5) because its average effects were summed before the graph inequality.
 
-```math
-\begin{aligned}
-T_{S,E}(\mathbf k_S)^\dagger
-&=\mathrm{Tr}_D\!\left[\rho_{DE}(K^\dagger\otimes I_E)\right]\\
-&=\mathrm{Tr}_D\!\left[(K^\dagger\otimes I_E)\rho_{DE}\right]
-=T_{S,E}(-\mathbf k_S).
-\end{aligned}
-\tag{4.6}
-```
-
-The same trace norm is therefore bounded by $`\prod_{i\in S}b_i(-k_i)^{1/4}`$. If a nonnegative number is at most both $`u`$ and $`v`$, it is at most $`\sqrt{uv}`$. Applying this observation to the two bounds proves the first inequality in (4.2).
-
-Operator Parseval yields the exact identity
-
-```math
-\sum_{k\in\mathbb F_p}A_i(k)^\dagger A_i(k)
-=\frac1p\sum_{x\in\mathbb F_p}M_i(x)^2.
-\tag{4.7}
-```
-
-Consequently,
-
-```math
-\sum_k b_i(k)
-=\frac1p\sum_x\mathrm{Tr}\,\rho_iM_i(x)^2
-\le1.
-\tag{4.8}
-```
-
-The definition of $`c_i`$ is symmetric under $`k\mapsto-k`$. Finally, scalar Cauchy-Schwarz gives
-
-```math
-\sum_k c_i(k)^4
-=\sum_k\sqrt{b_i(k)b_i(-k)}
-\le\left(\sum_k b_i(k)\right)^{1/2}
-\left(\sum_k b_i(-k)\right)^{1/2}
-\le1.
-\tag{4.9}
-```
-
-This proves (4.2). $`\square`$
-
-The fourth moment arises from two square roots: one in the state Cauchy-Schwarz estimate (4.4), and one in the event-probability network estimate (2.5). The symmetrization in (4.6) is also necessary. The numbers $`b_i(k)`$ need not themselves be even, because $`A_i(k)`$ need not commute with $`\rho_i`$.
+The [earlier fourth-moment proof](https://github.com/GoGoKo699/Shamir-Network-Leakage/blob/f3452b19e8a91f5de80d1e754d865a3097dcc999/science/network_bounds.md#4-fourth-moments-with-an-arbitrary-external-reference) used the event-probability form (2.5) and a coefficient bound on $`K^\dagger K`$. The trace-norm argument here keeps both positive moduli and uses the completeness of the average effects in the actual output blocks.
 
 ## 5. Pairing the nonzero frequencies
 
@@ -368,7 +377,7 @@ Hölder's inequality with $`n`$ equal exponents now gives
 
 $`\square`$
 
-Taking $`f_i=a_i`$ and $`d=2`$ gives the full-threshold exponent $`n/2`$ in the graph-vertex reference model. Taking $`f_i=c_i`$ and $`d=4`$ gives the exponent $`n/4`$ with arbitrary external references. The [full-threshold proof](full_threshold.md) explains why only this common-frequency sum remains. The [general-threshold proof](general_threshold.md) instead combines the same coefficient majorants with the dual code of the sharing scheme.
+Taking $`f_i=h_i`$ and $`d=2`$ gives the full-threshold exponent $`n/2`$ for arbitrary external references. The [full-threshold proof](full_threshold.md) explains why only this common-frequency sum remains. The [general-threshold proof](general_threshold.md) uses (4.5) to combine the same local weights over the full dual code.
 
 ## 6. Conditioning on actual classical randomness
 

@@ -13,7 +13,7 @@ The pointers below refer to the **standard-layout, author-hosted manuscript**, w
 | Background needed here | Verified book location | Use in this repository |
 |---|---|---|
 | Vector spaces, matrices, adjoints, and tensor factors | [Chapter 1](https://jhwatrous.github.io/TQI.1.pdf), §§1.1.1–1.1.2, beginning on pp. 1 and 8; partial trace on pp. 21–22 | Registers and marginal states in [the model](../science/model.md) |
-| Matrix decompositions and norms | Chapter 1, §1.1.3, p. 24 onward; polar decomposition p. 30, Schmidt decomposition p. 31; norm duality and Hölder in Eqs. (1.173)–(1.174), unitary trace-norm formula in Eq. (1.182) | Complex Fourier coefficients and weighted Hilbert-Schmidt norms in [network bounds](../science/network_bounds.md) |
+| Matrix decompositions and norms | Chapter 1, §1.1.3, p. 24 onward; polar decomposition p. 30, Schmidt decomposition p. 31; norm duality and Hölder in Eqs. (1.173)–(1.174), unitary trace-norm formula in Eq. (1.182) | Polar decomposition, trace-norm witnesses and local second moments in [network bounds](../science/network_bounds.md) |
 | Classical labels and density operators | [Chapter 2](https://jhwatrous.github.io/TQI.2.pdf), §§2.1.1–2.1.2, pp. 58–67 | Shares, output bits, and classical-quantum states |
 | Joint states with a classical register | Chapter 2, §2.2.3, pp. 95–96, Eq. (2.170) | The block form of leaked outcomes and actual shared seeds |
 | Reductions and purifying registers | Chapter 2, §2.1.3, pp. 67–72; Theorems 2.10 and 2.12 | The three reference scopes and endpoint purifications |
@@ -168,50 +168,35 @@ The first inequality pairs a bounded witness with the quantity being distinguish
 
 ### A trace-norm witness for an operator on the reference
 
-The unitary variational formula in Watrous, Eq. (1.182), is used on a reference-valued Fourier coefficient $`T_E`$:
+The unitary variational formula in Watrous, Eq. (1.182), applies to any reference operator $`T_E`$, including a non-Hermitian Fourier coefficient:
 
 ```math
-\|T_E\|_1=\max_{U_E\text{ unitary}}
-|\mathrm{Tr}(U_ET_E)|.
+\|T_E\|_1=\max_{V_E\text{ unitary}}
+|\mathrm{Tr}(V_ET_E)|.
 ```
 
-The formula applies to a non-Hermitian $`T_E`$. The unitary is a mathematical witness for the norm; it need not itself be a measurement outcome. Substituting the definition of $`T_E`$ converts its trace norm into a scalar expectation on the joint device-reference state.
+For a device operator $`K`$, set $`T_E=\mathrm{Tr}_D[(K\otimes I_E)\rho_{DE}]`$. The quantity inside the maximum is then $`|\mathrm{Tr}[\rho_{DE}(K\otimes V_E)]|`$.
 
-In the arbitrary-reference argument, put $`K=\bigotimes_iA_i(k_i)`$. Cauchy-Schwarz gives
-
-```math
-\begin{aligned}
-|\mathrm{Tr}\,\rho_{DE}(K\otimes U_E)|^2
-&\le\mathrm{Tr}\,\rho_{DE}
-(K^\dagger K\otimes U_E^\dagger U_E)\\
-&=\mathrm{Tr}\,\rho_D K^\dagger K.
-\end{aligned}
-```
-
-For example, this is ordinary Hilbert-Schmidt Cauchy-Schwarz applied to $`\rho_{DE}^{1/2}`$ and $`(K\otimes U_E)\rho_{DE}^{1/2}`$. It removes the reference from the expression while retaining its full distinguishing power on the left. The next step is the network-specific positive-effect Finner inequality, proved and attributed in [network bounds, Section 2](../science/network_bounds.md#2-complex-contraction-on-a-graph). That step does not follow from the textbook's norm inequalities alone.
-
-### Why the weighted Hilbert-Schmidt norm appears
-
-For a pure bipartite source, Schmidt decomposition writes its vector as $`\sum_a\sqrt{\eta_a}|a\rangle|a\rangle`$. When its expectation against local operators is expanded, an edge contributes a pair of indices and a weight $`\sqrt{\eta_a\eta_b}`$. Splitting that weight between its two endpoints gives the local tensor entries whose square-sum is
+The useful scalar bound comes from factoring $`K`$ before applying Cauchy–Schwarz. As in Watrous §1.1.3, use polar decomposition and set $`|K|=(K^\dagger K)^{1/2}`$. The polar factor can be extended to a unitary $`U`$ on the device space. Then
 
 ```math
-a_i(k)^2
-=\left\|\rho_i^{1/4}A_i(k)\rho_i^{1/4}\right\|_2^2.
-```
-
-The quarter powers reflect that splitting. They are determined by the independent-source contraction, rather than introduced as a new physical measurement. Parseval then gives a second-moment budget for these scalar majorants.
-
-For an arbitrary extension, the Cauchy-Schwarz step above and the positive-effect network inequality instead lead to
-
-```math
-b_i(k)=\mathrm{Tr}\,\rho_iA_i(k)^\dagger A_i(k),
+K=|K^\dagger|^{1/2}U|K|^{1/2},
 \qquad
-c_i(k)=[b_i(k)b_i(-k)]^{1/8},
-\qquad
-\sum_k c_i(k)^4\le1.
+\|T_E\|_1
+\le
+\left(\mathrm{Tr}[\rho_D|K^\dagger|]\right)^{1/2}
+\left(\mathrm{Tr}[\rho_D|K|]\right)^{1/2}.
 ```
 
-The fourth-moment budget records the extra square-root loss incurred when the reference is unrestricted. The full derivation, including the adjoint relation for $`T_E`$ and its frequency symmetrization, is in [network bounds, Section 4](../science/network_bounds.md#4-fourth-moments-with-an-arbitrary-external-reference).
+To see the bound, set $`L=|K^\dagger|^{1/2}\otimes I_E`$ and $`R=|K|^{1/2}\otimes I_E`$. Pair $`L\rho_{DE}^{1/2}`$ and $`(U\otimes V_E)R\rho_{DE}^{1/2}`$ in the Hilbert–Schmidt inner product. Their squared norms are the two device expectations above by unitarity and partial trace. The inequality holds for each witness, so it also holds after maximizing. The reference may be any extension of $`\rho_D`$. The product-source structure is used on $`\rho_D`$ at the later graph step. See [network bounds §4](../science/network_bounds.md#4-second-moments-with-an-arbitrary-external-reference).
+
+### Local second moments on the source graph
+
+For a positive local product $`\bigotimes_i H_i`$, the graph bound controls its expectation by $`\prod_i(\mathrm{Tr}[\rho_i H_i^2])^{1/2}`$. One way to read this bound is to measure each $`H_i`$ in its spectral basis and apply quantum Finner to the nonnegative spectral values. Taking $`H_i=|A_i(k)|`$ gives the moment $`b_i(k)=\mathrm{Tr}[\rho_i A_i(k)^\dagger A_i(k)]`$. Taking $`H_i=|A_i(k)^\dagger|`$ gives $`b_i(-k)`$.
+
+On a product of Fourier operators, apply the graph bound to both polar factors. The square root of their product supplies the local weight $`h_i(k)=[b_i(k)b_i(-k)]^{1/4}`$. Operator Parseval yields $`\sum_k b_i(k)\le1`$, so $`\sum_k h_i(k)^2\le1`$. The two frequencies $`k`$ and $`-k`$ have the same weight and are distinct for $`k\ne0`$ over an odd prime field. Thus each nonzero weight is at most $`1/\sqrt2`$.
+
+This derives a second-moment budget for the arbitrary-reference argument. Watrous supplies the norm and measurement language, and [the graph proof](../science/network_bounds.md#2-complex-contraction-on-a-graph) supplies the network inequality.
 
 ### Classical blocks retain their probabilities
 
@@ -226,13 +211,35 @@ The identity follows because the singular values of a direct sum are the singula
 
 Channel contraction, including the partial-trace case in Watrous's Eq. (1.183), then ensures that further processing cannot increase the final distance. The bounds already allow the adversary's best collective decision rule.
 
+### Summing the outcomes with zero frequency
+
+Fix a nonzero dual-code word $`k`$ and one leaked string. For every nonzero coordinate $`k_i`$, Fourier expansion of the local effect gives $`(-1)^{u_i}A_i(k_i)/2`$. Summing the trace-norm contribution over both possible values of $`u_i`$ cancels the factor of one half. For every zero coordinate, the coefficient is the positive averaged effect $`B_i(u_i)=p^{-1}\sum_y P_i(u_i\mid y)`$.
+
+For an example with one zero coordinate $`j`$, let $`F`$ be the product operator at the nonzero coordinates. For the two outcomes at $`j`$, the polar bound has the form $`\sqrt{x_b y_b}`$, with
+
+```math
+x_b=\mathrm{Tr}\!\left[\rho_D (|F^\dagger|\otimesB_j(b))\right],
+\qquad
+y_b=\mathrm{Tr}\!\left[\rho_D (|F|\otimesB_j(b))\right].
+```
+
+The notation puts $`j`$ last in the tensor product. Sum the two upper bounds using scalar Cauchy–Schwarz:
+
+```math
+\sum_{b=0}^{1}\sqrt{x_b y_b}
+\le
+\sqrt{\left(\sum_b x_b\right)\left(\sum_b y_b\right)}.
+```
+
+Completeness replaces $`\sum_bB_j(b)`$ by identity inside each scalar trace. The same argument sums over several zero coordinates at once, since the sum of the corresponding products of averaged effects is identity. Quantum Finner can now act on each positive product in the scalar bound. The resulting upper bound is a product of $`h_i(k_i)`$ only over nonzero coordinates. This order of operations is what removes the factors at zero frequency for a classical output with a quantum reference. See [the support bound in network bounds §4](../science/network_bounds.md#4-second-moments-with-an-arbitrary-external-reference).
+
 ## 6. Purification is a representation choice with a location
 
 The purification theorems in §2.1.3 say how a mixed state can arise as the reduction of a pure state and how different purifications are related. In the resource model, the location of the added register determines which theorem applies.
 
-Consider one mixed source $`\sigma_{D_iD_j}`$. A purification can be placed at an endpoint, for example by replacing $`D_i`$ with $`D_iR`$. The source remains bipartite across $`D_iR:D_j`$. Extending the measurement at $`D_i`$ by the identity on $`R`$ reproduces the original experiment. This is the pure-source dilation used for the second-moment estimate.
+Consider one mixed source $`\sigma_{D_iD_j}`$. A purification can be placed at an endpoint, for example by replacing $`D_i`$ with $`D_iR`$. The source remains bipartite across $`D_iR:D_j`$. Extending the measurement at $`D_i`$ by the identity on $`R`$ reproduces the original experiment. This is the pure-source dilation used to justify the graph contraction on the device marginal.
 
-If instead the adversary holds $`R`$, the source is distributed over $`D_i,D_j,E`$. Its device marginal is still the same bipartite state, but the complete resource is not an edge between two vertices in the narrower device-plus-adversary graph. The arbitrary-extension theorem permits this arrangement and uses the fourth-moment estimate. The book's existence theorem for purifications does not remove this distinction about who holds the registers.
+If instead the adversary holds $`R`$, the source is distributed over $`D_i,D_j,E`$. The device marginal remains the same bipartite state. The arbitrary-extension proof uses polar decomposition to control the reference witness through that marginal. The graph-vertex proof applies directly when every source, including those to the adversary, connects only two vertices. The book's existence theorem for purifications does not remove this distinction about who holds the registers.
 
 Proposition 2.29 in §2.2.2 gives a useful description of that broader scope. Fix any purification $`|\psi\rangle_{DR}`$ of the required device marginal. Every extension of the same marginal can be written as
 
@@ -340,7 +347,7 @@ Consequently,
 P_{\mathrm{guess}}=\frac12+\frac{\sqrt3}{4}.
 ```
 
-An optimal decision rule outputs secret zero for even parity and secret one for odd parity. The distance equals $`\cos(\pi/6)`$, the graph-vertex full-threshold bound at $`n=2,p=3`$. This small instance displays the mechanism; exponential suppression appears when the number of devices grows. The [matching attack proof](../science/full_threshold.md#4-an-attack-attaining-the-graph-vertex-bound-for-even-size) establishes the exact expression for every even $`n`$.
+An optimal decision rule outputs secret zero for even parity and secret one for odd parity. The distance equals $`\cos(\pi/6)`$, the arbitrary-reference full-threshold upper bound at $`n=2,p=3`$. This small instance displays the mechanism; exponential suppression appears when the number of devices grows. The [matching attack proof](../science/full_threshold.md#4-bell-pair-attainment) establishes the exact expression for every even $`n`$.
 
 ## 8. The additional mathematics supplied by the repository
 
@@ -351,10 +358,10 @@ The book's framework makes the quantum expressions meaningful. Four further step
 | Arithmetic over $`\mathbb F_p`$ and Shamir sharing | Uniform polynomial coefficients determine a correlated classical share distribution; interpolation gives local additive coordinates at full threshold | [Model, Section 1](../science/model.md#1-shares-and-public-parameters); [Fourier account, Section 5](../science/fourier.md#5-full-threshold-and-additive-coordinates) |
 | Finite-field and binary-output Fourier expansions | Additive characters select surviving input frequencies; binary characters identify leaked parities | [Fourier account, Sections 1–4](../science/fourier.md) |
 | Independent-source graph contraction and quantum Finner | The resource factorization bounds scalar or reference-valued coefficients uniformly in graph density and dimension | [Network bounds](../science/network_bounds.md) |
-| The dual MDS code and weighted Hölder estimate | Below full threshold, minimum codeword weight forces a secret-dependent term to involve many devices, and the code inequality sums those terms without a field-size factor | [General thresholds](../science/general_threshold.md) |
+| Weighted code sums and list recovery | Minimum codeword weight forces each nonzero term to involve many devices. MDS Hölder gives an explicit finite bound. The weighted generalized Reed–Solomon estimate gives the leading exponent above one half. | [General thresholds](../science/general_threshold.md) |
 
 The relevant field characters are the numbers $`\omega^{kx}`$, where $`\omega=e^{2\pi i/p}`$ and products $`kx`$ are computed modulo $`p`$. Orthogonality is the finite sum identity $`\sum_x\omega^{kx}=0`$ for $`k\ne0`$. This Fourier transform is an algebraic expansion of the measurement family, not a quantum Fourier-transform circuit performed by the devices.
 
-After the quantum coefficient bounds and Fourier identities are in place, the proof has two routes. At full threshold, all proper output parities cancel and a single paired-frequency sum gives the two exponents $`n/2`$ and $`n/4`$ under their respective reference assumptions. Below full threshold, more parities survive, and the dual-code summation gives the stated sufficient reconstruction rates. The exact assumptions and constants remain in [full threshold](../science/full_threshold.md) and [general thresholds](../science/general_threshold.md).
+At full threshold, proper output parities are secret independent. One paired-frequency sum yields the bound $`2^{1-n/2}\cos(\pi/(2p))`$ for every permitted reference. Independent Bell pairs attain it at even size. Below full threshold, the support bound leads to a weighted dual-code sum. When the reconstruction rate is at least $`1/2+\eta`$ for fixed $`\eta>0`$, the sharp leading exponent is $`t/2`$, with a matching construction on a reconstruction set. See [full threshold](../science/full_threshold.md) and [general thresholds](../science/general_threshold.md).
 
 **Navigation:** [Milestones](MILESTONES.md) · [Scientific overview](../science/README.md) · [Resource boundaries](../science/boundaries.md) · [Research attribution](../references/RELATED_WORK.md).

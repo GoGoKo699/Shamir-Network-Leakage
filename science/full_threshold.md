@@ -1,51 +1,26 @@
 # Full-threshold secrecy and the matching Bell-pair attack
 
-For full-threshold Shamir sharing, every proper subset of shares is independent of the secret. With one classical leaked bit per device, this makes every proper output parity secret independent, even when the adversary retains a quantum reference. Only the parity of all output bits remains. Its Fourier expansion, together with the [network coefficient bounds](network_bounds.md), gives an estimate independent of the graph's degree and of all source dimensions.
+At full threshold, every proper subset of shares is independent of the secret. The only output parity that can depend on it is the parity of all leaked bits, even in the presence of a quantum reference. Independent Bell pairs attain the resulting trace-distance bound when the number of devices is even, also when the adversary is allowed an arbitrary extension of the independent-source device marginal.
 
-In the graph-vertex reference model, the resulting bound is exact for every even number of devices. Independent Bell pairs attain it. With an arbitrary external reference extending a product device marginal, the proof gives a weaker exponential upper bound; exact optimality is not claimed in that broader model.
+## 1. The exact law for even size
 
-## 1. The two full-threshold bounds
+Let $`p>n`$ be an odd prime and consider $`(n,n)`$ Shamir sharing at distinct nonzero evaluation points. Every device emits one classical bit by a local binary measurement. The sources are independent of the shared secret and the sharing randomness, and the devices make their measurements without communicating. The adversary receives all bits and retains the reference $`E`$. See [the model](model.md) for the full resource assumptions.
 
-Let $`p>n`$ be an odd prime and consider $`(n,n)`$ Shamir sharing at distinct nonzero evaluation points. Every device emits one classical bit by an arbitrary local binary measurement. The state supplied by the sources is independent of the secret and sharing randomness, and devices do not communicate during leakage. The adversary receives all bits and retains the allowed reference $`E`$. Write
+### Theorem 1.1: full-threshold distance with arbitrary references
 
-```math
-\Delta(s,s')
-=\frac12\left\|\Omega_s^{BE}-\Omega_{s'}^{BE}\right\|_1
-```
-
-for two distinct chosen secrets. The [model](model.md) specifies the experiment and the reference scopes precisely.
-
-### Theorem 1.1: exact even-size law for graph-vertex references
-
-Suppose independent bipartite sources lie on an arbitrary graph with vertices $`D_1,\ldots,D_n`$ and, optionally, one adversary vertex $`E`$. For $`n\ge2`$,
+Suppose the device marginal is a literal tensor product of independent bipartite-source states and $`\rho_{DE}`$ is any extension. For $`n\ge2`$ and each pair $`s\ne s'`$,
 
 ```math
 \boxed{\quad
-\Delta(s,s')\le
-2^{1-n/2}\cos\!\left(\frac{\pi}{2p}\right).
+\Delta(s,s')=\frac12\|\Omega_s^{BE}-\Omega_{s'}^{BE}\|_1
+\le 2^{1-n/2}\cos\!\left(\frac{\pi}{2p}\right).
 \quad}
 \tag{1.1}
 ```
 
-This includes the case with no external reference. For every even $`n`$ and every pair $`s\ne s'`$, a strategy using a perfect matching of Bell pairs and no reference attains equality. Thus (1.1) is the exact maximum over the allowed graphs and strategies when $`n`$ is even. It is also attained on any prescribed graph containing a perfect matching, if the source states can be chosen freely and other edges are ignored.
+The extension may hold all source purifications and be processed collectively. The bound is uniform in the graph, the source dimensions and the finite reference dimension. Actual classical shared flags are allowed when the source condition holds in each branch.
 
-The statement does not assert equality for odd $`n`$ or for every prescribed graph. It allows independent device-adversary sources and arbitrary collective processing at the adversary vertex. A purification of a device-device source held by a third party is not automatically a bipartite source in this model.
-
-### Theorem 1.2: arbitrary external references
-
-Suppose the device marginal is a literal tensor product of independent bipartite-source states, and $`\rho_{DE}`$ is any extension of that marginal. For $`n\ge4`$,
-
-```math
-\boxed{\quad
-\Delta(s,s')\le
-2^{1-n/4}\cos\!\left(\frac{\pi}{2p}\right).
-\quad}
-\tag{1.2}
-```
-
-The extension can contain purifications of all device-device sources and arbitrary correlations among the adversary's registers. The right side is uniform in the graph, its degree, and all finite dimensions. For fewer than four devices, the general bound $`\Delta\le1`$ remains available; the fourth-moment proof below is stated for $`n\ge4`$.
-
-Both theorems allow an actual classical shared seed that selects the graph, states, and local measurements, with the corresponding source condition satisfied in each conditional branch. The seed may be given to the adversary. The coherent purification of an unlabelled classical mixture is a different resource, as discussed in [the model](model.md) and [the boundary examples](boundaries.md).
+For every even $`n`$, independent Bell pairs on a perfect matching attain equality, with a trivial reference. Thus (1.1) is the exact maximum over permitted graphs and strategies. It is also attained on any prescribed graph that contains a perfect matching when sources may be chosen freely and other edges ignored. For odd $`n\ge3`$, Section 4 gives a lower bound within a universal constant factor of the upper bound.
 
 ## 2. Additive coordinates and the single relevant parity
 
@@ -107,11 +82,11 @@ Trace norm is additive over classical blocks. There are $`2^n`$ blocks with equa
 \tag{2.6}
 ```
 
-This exact reduction is stronger than the sum of parity norms used below full threshold.
+This exact reduction takes advantage of full threshold. The general bound uses the full classical outcome record and sums the zero-frequency effects for each dual codeword.
 
 ## 3. Fourier proof and the finite-prime factor
 
-The Fourier inverse is $`M_i(x)=\sum_k\omega^{kx}A_i(k)`$. Uniform averaging on the hyperplane $`\sum_iX_i=s`$ annihilates every frequency vector except a diagonal vector $`(k,\ldots,k)`$. One may check this directly by substituting $`X_n=s-\sum_{i<n}X_i`$ and averaging the remaining coordinates independently. Thus
+The Fourier inverse is $`M_i(x)=\sum_k\omega^{kx}A_i(k)`$. Uniform averaging on the hyperplane $`\sum_iX_i=s`$ annihilates every frequency vector except a diagonal vector $`(k,\ldots,k)`$. One may check this directly by substituting $`X_n=s-\sum_{i\lt n}X_i`$ and averaging the remaining coordinates independently. Thus
 
 ```math
 F_E(s)=\sum_{k\in\mathbb F_p}\omega^{ks}T_E(k),
@@ -149,44 +124,28 @@ The maximum is reached at $`j=(p-1)/2`$ or $`j=(p+1)/2`$, since $`p`$ is odd. Fo
 \tag{3.4}
 ```
 
-In the graph-vertex reference model, [Proposition 3.1 of the network estimates](network_bounds.md#3-second-moments-and-graph-vertex-references) supplies
+The [arbitrary-reference second moments](network_bounds.md#4-second-moments-with-an-arbitrary-external-reference) give
 
 ```math
-\|T_E(k)\|_1\le\prod_i a_i(k),
-\qquad a_i(-k)=a_i(k),
-\qquad \sum_k a_i(k)^2\le1.
+\|T_E(k)\|_1\le\prod_i h_i(k),
+\qquad
+h_i(-k)=h_i(k),
+\qquad
+\sum_{k\in\mathbb F_p}h_i(k)^2\le1.
 ```
 
-The coefficients $`a_i(k)`$ are computed in a pure-source dilation, with mixed-edge purifications assigned to their endpoints. Applying the [paired-frequency lemma](network_bounds.md#5-pairing-the-nonzero-frequencies) with moment order two and $`n\ge2`$ yields
+The [paired-frequency lemma](network_bounds.md#5-pairing-the-nonzero-frequencies) with moment order two and $`n\ge2`$ yields
 
 ```math
 \sum_{k\ne0}\|T_E(k)\|_1
-\le\sum_{k\ne0}\prod_i a_i(k)
-\le2^{1-n/2}.
+\le\sum_{k\ne0}\prod_i h_i(k)
+\le 2^{1-n/2}.
 \tag{3.5}
 ```
 
-Combining (3.4) and (3.5) proves Theorem 1.1's upper bound.
+Combining (3.4) and (3.5) proves Theorem 1.1's upper bound. $`\square`$
 
-For an arbitrary extension of the independent-source device marginal, [Proposition 4.1](network_bounds.md#4-fourth-moments-with-an-arbitrary-external-reference) instead gives
-
-```math
-\|T_E(k)\|_1\le\prod_i c_i(k),
-\qquad c_i(-k)=c_i(k),
-\qquad \sum_k c_i(k)^4\le1.
-```
-
-Apply the same paired-frequency lemma with moment order four and $`n\ge4`$:
-
-```math
-\sum_{k\ne0}\|T_E(k)\|_1
-\le2^{1-n/4}.
-\tag{3.6}
-```
-
-Equations (3.4) and (3.6) prove Theorem 1.2. The output-parity and phase arguments are identical in the two proofs; the different exponents arise entirely from the available network coefficient estimates. $`\square`$
-
-## 4. An attack attaining the graph-vertex bound for even size
+## 4. Bell-pair attainment
 
 Let $`n=2m`$. Pair the devices as $`(1,2),(3,4),\ldots,(2m-1,2m)`$, and supply the independent Bell states
 
@@ -264,7 +223,29 @@ Then the first sine in (4.5) has magnitude $`\cos(\pi/(2p))`$. Choose the total 
 \tag{4.6}
 ```
 
-This proves the attainment assertion in Theorem 1.1. The attack also supplies a lower bound in the arbitrary-reference model, because a trivial reference is allowed there. It does not match the fourth-moment upper bound (1.2).
+The Bell matching is available in both reference models. It attains the arbitrary-reference upper bound in Theorem 1.1.
+
+### Odd device counts
+
+Let $`n=2m+1\ge3`$. Keep the construction on $`2m`$ paired devices and let the unpaired device report the sign of $`\cos(2\pi kx/p)`$ as its bit. Its normalized coefficient at $`k`$ equals the real number
+
+```math
+c_k=\frac1p\sum_{x\in\mathbb F_p}|\cos(2\pi kx/p)|
+\ge\frac1p\sum_{x\in\mathbb F_p}\cos^2(2\pi kx/p)
+=\frac12.
+\tag{4.7}
+```
+
+For the coefficient equality, multiply the sign by $`\omega^{-kx}`$ and pair $`x`$ with $`-x`$ to cancel the imaginary part. At least one Bell pair is present, and all its contributing frequencies are $`\pm k`$. The diagonal-word condition then evaluates the single unpaired coefficient at those frequencies. Thus (4.3) holds with the extra factor $`c_k`$. Using the same challenge-dependent phase choice as in (4.5) gives
+
+```math
+\Delta(s,s')
+=2^{1-m}c_k\cos\!\left(\frac{\pi}{2p}\right)
+\ge 2^{-(n-1)/2}\cos\!\left(\frac{\pi}{2p}\right).
+\tag{4.8}
+```
+
+The [general-threshold lower bound](general_threshold.md#lower-bound-from-reconstruction-positions) applies these constructions on any selected reconstruction set.
 
 ## 5. Scope, dependencies, and verification
 
@@ -272,6 +253,6 @@ The proof uses the independent-source condition at the resource snapshot, before
 
 The network inequalities used in Section 3 are inherited from the graph-contraction and quantum Finner literature, with the precise sources and the required complex-operator proof given in [network bounds](network_bounds.md). The share-character and output-parity identities are developed in [the Fourier account](fourier.md). The conclusions here combine those ingredients into a graph-independent secrecy bound and an exact even-size attack. The [related-work discussion](../references/RELATED_WORK.md) compares the reference models and leakage restrictions of the surrounding secret-sharing results.
 
-The finite calculations in [verification](../verification/README.md) reproduce the attack probabilities and the distance in (4.6) for small instances. Those calculations check normalizations and constants; the proofs above establish the dimension-uniform statements.
+The finite calculations in [verification](../verification/README.md) check the attack probabilities and the distances in (4.6) and (4.8) for small instances. Those calculations check normalizations and constants; the proofs above establish the dimension-uniform statements.
 
 **Related:** [General reconstruction thresholds](general_threshold.md) · [Network coefficient estimates](network_bounds.md) · [Resource boundaries](boundaries.md).
