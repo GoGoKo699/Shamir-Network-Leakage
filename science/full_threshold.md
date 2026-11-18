@@ -12,11 +12,12 @@ Suppose the device marginal is a literal tensor product of independent bipartite
 
 ```math
 \boxed{\quad
-\Delta(s,s')=\frac12\|\Omega_s^{BE}-\Omega_{s'}^{BE}\|_1
+\Delta(s,s')=\frac12\Vert \Omega_s^{BE}-\Omega_{s'}^{BE}\Vert _1
 \le 2^{1-n/2}\cos\!\left(\frac{\pi}{2p}\right).
 \quad}
-\tag{1.1}
 ```
+
+*Equation (1.1).*
 
 The extension may hold all source purifications and be processed collectively. The bound is uniform in the graph, the source dimensions and the finite reference dimension. Actual classical shared flags are allowed when the source condition holds in each branch.
 
@@ -30,8 +31,9 @@ At full threshold, the [Lagrange change of coordinates](fourier.md#5-full-thresh
 X_i=\ell_iY_i,
 \qquad
 \sum_{i=1}^nX_i=s.
-\tag{2.1}
 ```
+
+*Equation (2.1).*
 
 The vector $`X`$ is uniform on this affine hyperplane. Indeed, evaluation of a polynomial of degree at most $`n-1`$ at the $`n`$ distinct points is invertible. Fixing its constant coefficient imposes exactly the displayed linear equation. Multiplication by each $`\ell_i\ne0`$ is an invertible local relabelling, so it leaves the set of possible leakage strategies unchanged.
 
@@ -40,8 +42,9 @@ For this page, write $`M_i(x)`$ for the rescaled measurement family: it is the o
 ```math
 A_i(k)=\frac1p\sum_{x\in\mathbb F_p}\omega^{-kx}M_i(x),
 \qquad \omega=e^{2\pi i/p}.
-\tag{2.2}
 ```
+
+*Equation (2.2).*
 
 For $`S\subseteq[n]`$, let
 
@@ -52,8 +55,9 @@ F_{S,E}(s)
 \left(\bigotimes_{i\in S}M_i(X_i)
 \otimes I_{D_{S^c}}\otimes I_E\right)\rho_{DE}
 \right].
-\tag{2.3}
 ```
+
+*Equation (2.3).*
 
 This is an operator on the adversary's reference. Expanding the binary POVMs gives the exact output-parity identity
 
@@ -61,8 +65,9 @@ This is an operator on the adversary's reference. Expanding the binary POVMs giv
 \Omega_s^{BE}
 =2^{-n}\sum_{b\in\{0,1\}^n}|b\rangle\langle b|\otimes
 \sum_{S\subseteq[n]}(-1)^{\sum_{i\in S}b_i}F_{S,E}(s).
-\tag{2.4}
 ```
+
+*Equation (2.4).*
 
 If $`S`$ is proper, the marginal $`X_S`$ is uniform on $`\mathbb F_p^{|S|}`$ independently of $`s`$. The operator inside the average in (2.3) depends only on $`X_S`$. Consequently $`F_{S,E}(s)`$ is independent of the secret for every proper $`S`$. This reasoning does not assume the reference is uncorrelated with the devices. The identity operators on complementary devices arise from summing their outcome probabilities; operations whose outputs are not retained cannot signal to $`E`$.
 
@@ -72,15 +77,17 @@ Put $`F_E(s)=F_{[n],E}(s)`$. All proper parity terms cancel between two secrets,
 \Omega_s^{BE}-\Omega_{s'}^{BE}
 =2^{-n}\sum_b(-1)^{\sum_i b_i}|b\rangle\langle b|
 \otimes\bigl[F_E(s)-F_E(s')\bigr].
-\tag{2.5}
 ```
+
+*Equation (2.5).*
 
 Trace norm is additive over classical blocks. There are $`2^n`$ blocks with equal norm, so the factor $`2^{-n}`$ cancels exactly:
 
 ```math
-\Delta(s,s')=\frac12\|F_E(s)-F_E(s')\|_1.
-\tag{2.6}
+\Delta(s,s')=\frac12\Vert F_E(s)-F_E(s')\Vert _1.
 ```
+
+*Equation (2.6).*
 
 This exact reduction takes advantage of full threshold. The general bound uses the full classical outcome record and sums the zero-frequency effects for each dual codeword.
 
@@ -94,17 +101,19 @@ F_E(s)=\sum_{k\in\mathbb F_p}\omega^{ks}T_E(k),
 T_E(k)=\mathrm{Tr}_D\!\left[
 \left(\bigotimes_{i=1}^n A_i(k)\otimes I_E\right)\rho_{DE}
 \right].
-\tag{3.1}
 ```
+
+*Equation (3.1).*
 
 The zero frequency cancels in the difference. Equations (2.6) and (3.1) imply
 
 ```math
 \Delta(s,s')
 \le\frac12\sum_{k\ne0}
-|\omega^{ks}-\omega^{ks'}|\,\|T_E(k)\|_1.
-\tag{3.2}
+|\omega^{ks}-\omega^{ks'}|\,\Vert T_E(k)\Vert _1.
 ```
+
+*Equation (3.2).*
 
 For any nonzero residue $`j\in\mathbb F_p`$,
 
@@ -112,22 +121,24 @@ For any nonzero residue $`j\in\mathbb F_p`$,
 \frac12|1-\omega^j|
 =\left|\sin\!\left(\frac{\pi j}{p}\right)\right|
 \le\cos\!\left(\frac{\pi}{2p}\right).
-\tag{3.3}
 ```
+
+*Equation (3.3).*
 
 The maximum is reached at $`j=(p-1)/2`$ or $`j=(p+1)/2`$, since $`p`$ is odd. For $`s\ne s'`$ and $`k\ne0`$, the residue $`k(s-s')`$ is nonzero. Substitution in (3.2) gives
 
 ```math
 \Delta(s,s')
 \le\cos\!\left(\frac{\pi}{2p}\right)
-\sum_{k\ne0}\|T_E(k)\|_1.
-\tag{3.4}
+\sum_{k\ne0}\Vert T_E(k)\Vert _1.
 ```
+
+*Equation (3.4).*
 
 The [arbitrary-reference second moments](network_bounds.md#4-second-moments-with-an-arbitrary-external-reference) give
 
 ```math
-\|T_E(k)\|_1\le\prod_i h_i(k),
+\Vert T_E(k)\Vert _1\le\prod_i h_i(k),
 \qquad
 h_i(-k)=h_i(k),
 \qquad
@@ -137,11 +148,12 @@ h_i(-k)=h_i(k),
 The [paired-frequency lemma](network_bounds.md#5-pairing-the-nonzero-frequencies) with moment order two and $`n\ge2`$ yields
 
 ```math
-\sum_{k\ne0}\|T_E(k)\|_1
+\sum_{k\ne0}\Vert T_E(k)\Vert _1
 \le\sum_{k\ne0}\prod_i h_i(k)
 \le 2^{1-n/2}.
-\tag{3.5}
 ```
+
+*Equation (3.5).*
 
 Combining (3.4) and (3.5) proves Theorem 1.1's upper bound. $`\square`$
 
@@ -159,8 +171,9 @@ There is no adversary reference. Fix a nonzero $`k\in\mathbb F_p`$ and real phas
 M_i(x)
 =\cos\!\left(\frac{2\pi kx}{p}+\phi_i\right)\sigma_x
 +\sin\!\left(\frac{2\pi kx}{p}+\phi_i\right)\sigma_y,
-\tag{4.1}
 ```
+
+*Equation (4.1).*
 
 where $`\sigma_x,\sigma_y`$ are the Pauli matrices. It reports bit $`b_i`$ when the eigenvalue is $`(-1)^{b_i}`$. This is a binary projective measurement and releases exactly one classical bit.
 
@@ -172,8 +185,9 @@ The single-site marginal of $`|\Phi^+\rangle`$ is maximally mixed. Also
 \otimes(\cos\theta'\,\sigma_x+\sin\theta'\,\sigma_y)
 |\Phi^+\rangle
 =\cos(\theta+\theta').
-\tag{4.2}
 ```
+
+*Equation (4.2).*
 
 For a parity that contains exactly one endpoint of some pair, its conditional expectation is zero. A parity that is a union of complete pairs has expectation equal to the product of the corresponding cosines. If that union is nonempty and proper, averaging over the additive shares makes it zero: its Fourier expansion has a nonzero frequency at selected coordinates and zero at an omitted coordinate, so no diagonal frequency vector survives.
 
@@ -182,8 +196,9 @@ For the full parity, expand the product over all $`m`$ pairs. Each cosine contri
 ```math
 F(s)=2^{-m}\left(e^{i\Phi}\omega^{ks}+e^{-i\Phi}\omega^{-ks}\right)
 =2^{1-m}\cos\!\left(\frac{2\pi ks}{p}+\Phi\right).
-\tag{4.3}
 ```
+
+*Equation (4.3).*
 
 All nonempty proper output parities vanish, so the complete output distribution is
 
@@ -193,8 +208,9 @@ P_s(b)
 1+(-1)^{\sum_i b_i}\,2^{1-m}
 \cos\!\left(\frac{2\pi ks}{p}+\Phi\right)
 \right].
-\tag{4.4}
 ```
+
+*Equation (4.4).*
 
 Using the parity reduction or summing the classical probabilities directly gives
 
@@ -206,8 +222,9 @@ Using the parity reduction or summing the classical probabilities directly gives
 \left|\sin\!\left(\frac{\pi k(s-s')}{p}\right)\right|
 \left|\sin\!\left(\frac{\pi k(s+s')}{p}+\Phi\right)\right|.
 \end{aligned}
-\tag{4.5}
 ```
+
+*Equation (4.5).*
 
 Because $`p`$ is prime and $`s-s'\ne0`$, choose $`k`$ so that
 
@@ -220,8 +237,9 @@ Then the first sine in (4.5) has magnitude $`\cos(\pi/(2p))`$. Choose the total 
 ```math
 \Delta(s,s')
 =2^{1-n/2}\cos\!\left(\frac{\pi}{2p}\right).
-\tag{4.6}
 ```
+
+*Equation (4.6).*
 
 The Bell matching is available in both reference models. It attains the arbitrary-reference upper bound in Theorem 1.1.
 
@@ -233,8 +251,9 @@ Let $`n=2m+1\ge3`$. Keep the construction on $`2m`$ paired devices and let the u
 c_k=\frac1p\sum_{x\in\mathbb F_p}|\cos(2\pi kx/p)|
 \ge\frac1p\sum_{x\in\mathbb F_p}\cos^2(2\pi kx/p)
 =\frac12.
-\tag{4.7}
 ```
+
+*Equation (4.7).*
 
 For the coefficient equality, multiply the sign by $`\omega^{-kx}`$ and pair $`x`$ with $`-x`$ to cancel the imaginary part. At least one Bell pair is present, and all its contributing frequencies are $`\pm k`$. The diagonal-word condition then evaluates the single unpaired coefficient at those frequencies. Thus (4.3) holds with the extra factor $`c_k`$. Using the same challenge-dependent phase choice as in (4.5) gives
 
@@ -242,8 +261,9 @@ For the coefficient equality, multiply the sign by $`\omega^{-kx}`$ and pair $`x
 \Delta(s,s')
 =2^{1-m}c_k\cos\!\left(\frac{\pi}{2p}\right)
 \ge 2^{-(n-1)/2}\cos\!\left(\frac{\pi}{2p}\right).
-\tag{4.8}
 ```
+
+*Equation (4.8).*
 
 The [general-threshold lower bound](general_threshold.md#lower-bound-from-reconstruction-positions) applies these constructions on any selected reconstruction set.
 

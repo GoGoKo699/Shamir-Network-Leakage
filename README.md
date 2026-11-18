@@ -9,7 +9,7 @@ The shares and leaked bits are classical. Each device may perform an arbitrary j
 Let $`n`$ be the number of shares, $`t`$ the reconstruction threshold, and $`p>n`$ an odd prime. Write
 
 ```math
-\Delta(s,s')=\frac12\|\Omega_s^{BE}-\Omega_{s'}^{BE}\|_1
+\Delta(s,s')=\frac12\Vert \Omega_s^{BE}-\Omega_{s'}^{BE}\Vert _1
 ```
 
 for the distance between the adversary's final states under two chosen secrets.

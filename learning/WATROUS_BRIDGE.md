@@ -36,15 +36,15 @@ The same letter can denote different objects in the book and in the sharing prob
 | $`A^*`$ | $`A^\dagger`$ | Conjugate transpose |
 | $`e_b`$, $`E_{b,b}=e_be_b^*`$ | $`\lvert b\rangle`$, $`\lvert b\rangle\langle b\rvert`$ | Basis vectors and classical basis projectors |
 | A measurement $`\mu(b)`$ | $`P_i(b\mid y)`$ | The effect for bit $`b`$, with the measurement selected by share $`y`$ |
-| $`\|A\|`$ for the spectral norm | $`\|A\|_\infty`$ | Largest singular value |
-| $`\|A\|_2`$, the Frobenius norm | $`\|A\|_2`$, also called Hilbert-Schmidt norm | Square root of the sum of squared singular values |
-| Trace distance written as $`\|\rho-\sigma\|_1`$ on p. 34 | $`\Delta(\rho,\sigma)=\frac12\|\rho-\sigma\|_1`$ | This repository includes a factor of one half |
+| $`\Vert A\Vert `$ for the spectral norm | $`\Vert A\Vert _\infty`$ | Largest singular value |
+| $`\Vert A\Vert _2`$, the Frobenius norm | $`\Vert A\Vert _2`$, also called Hilbert-Schmidt norm | Square root of the sum of squared singular values |
+| Trace distance written as $`\Vert \rho-\sigma\Vert _1`$ on p. 34 | $`\Delta(\rho,\sigma)=\frac12\Vert \rho-\sigma\Vert _1`$ | This repository includes a factor of one half |
 
 The last row controls the guessing-probability convention. For equal prior probabilities, Watrous's Theorem 3.4 gives, in the repository's notation,
 
 ```math
 P_{\mathrm{guess}}
-=\frac12+\frac14\|\Omega_s^{BE}-\Omega_{s'}^{BE}\|_1
+=\frac12+\frac14\Vert \Omega_s^{BE}-\Omega_{s'}^{BE}\Vert _1
 =\frac{1+\Delta(s,s')}{2}.
 ```
 
@@ -138,18 +138,18 @@ This parametrization includes noisy measurements and randomized classical output
 
 Products of these signs are output parities. Expanding a product of binary effects therefore produces a sum indexed by subsets of devices. The exact expansion and its trace-distance consequences are derived in [the output Fourier account](../science/fourier.md#3-output-parities-with-a-quantum-reference).
 
-The Fourier coefficient $`A_i(k)=p^{-1}\sum_y\omega^{-ky}M_i(y)`$ is generally **not** Hermitian: its weights can be complex. What remains true is $`A_i(-k)=A_i(k)^\dagger`$ and $`\|A_i(k)\|_\infty\le1`$. This is why the network proof needs an inequality for complex operators, even though each actual measurement is represented by a Hermitian observable.
+The Fourier coefficient $`A_i(k)=p^{-1}\sum_y\omega^{-ky}M_i(y)`$ is generally **not** Hermitian: its weights can be complex. What remains true is $`A_i(-k)=A_i(k)^\dagger`$ and $`\Vert A_i(k)\Vert _\infty\le1`$. This is why the network proof needs an inequality for complex operators, even though each actual measurement is represented by a Hermitian observable.
 
 ## 5. The norms serve different purposes
 
 For a matrix $`Z`$, the three relevant Schatten norms are
 
 ```math
-\|Z\|_1=\mathrm{Tr}\,\sqrt{Z^\dagger Z},
+\Vert Z\Vert _1=\mathrm{Tr}\,\sqrt{Z^\dagger Z},
 \qquad
-\|Z\|_2=\sqrt{\mathrm{Tr}\,Z^\dagger Z},
+\Vert Z\Vert _2=\sqrt{\mathrm{Tr}\,Z^\dagger Z},
 \qquad
-\|Z\|_\infty=\text{largest singular value of }Z.
+\Vert Z\Vert _\infty=\text{largest singular value of }Z.
 ```
 
 The operator norm certifies that Fourier coefficients are contractions. The Hilbert-Schmidt norm turns tensor entries into a square-sum that can be controlled by Cauchy-Schwarz. The trace norm bounds the adversary's distinguishing power. Substituting one of these norms for another without accounting for dimension would lose the dimension-uniform guarantee.
@@ -158,10 +158,10 @@ The relevant instances of Schatten Hölder are
 
 ```math
 |\mathrm{Tr}(X^\dagger Y)|
-\le\|X\|_\infty\|Y\|_1,
+\le\Vert X\Vert _\infty\Vert Y\Vert _1,
 \qquad
 |\mathrm{Tr}(X^\dagger Y)|
-\le\|X\|_2\|Y\|_2.
+\le\Vert X\Vert _2\Vert Y\Vert _2.
 ```
 
 The first inequality pairs a bounded witness with the quantity being distinguished. The second is Hilbert-Schmidt Cauchy-Schwarz, used for the graph tensor contraction and the state-weighted estimate below.
@@ -171,7 +171,7 @@ The first inequality pairs a bounded witness with the quantity being distinguish
 The unitary variational formula in Watrous, Eq. (1.182), applies to any reference operator $`T_E`$, including a non-Hermitian Fourier coefficient:
 
 ```math
-\|T_E\|_1=\max_{V_E\text{ unitary}}
+\Vert T_E\Vert _1=\max_{V_E\text{ unitary}}
 |\mathrm{Tr}(V_ET_E)|.
 ```
 
@@ -182,7 +182,7 @@ The useful scalar bound comes from factoring $`K`$ before applying Cauchy–Schw
 ```math
 K=|K^\dagger|^{1/2}U|K|^{1/2},
 \qquad
-\|T_E\|_1
+\Vert T_E\Vert _1
 \le
 \left(\mathrm{Tr}[\rho_D|K^\dagger|]\right)^{1/2}
 \left(\mathrm{Tr}[\rho_D|K|]\right)^{1/2}.
@@ -203,8 +203,8 @@ This derives a second-moment budget for the arbitrary-reference argument. Watrou
 For a block-diagonal operator,
 
 ```math
-\left\|\sum_b|b\rangle\langle b|\otimes Z_b\right\|_1
-=\sum_b\|Z_b\|_1.
+\left\Vert \sum_b|b\rangle\langle b|\otimes Z_b\right\Vert _1
+=\sum_b\Vert Z_b\Vert _1.
 ```
 
 The identity follows because the singular values of a direct sum are the singular values of its blocks collected together. It explains why the security proof works with unnormalized conditional states. Renormalizing each block separately would discard its probability and could overstate the adversary's advantage on a rare outcome.
@@ -340,7 +340,7 @@ Every individual bit has probability one half under either secret, yet the parit
 Consequently,
 
 ```math
-\|\Omega_0^B-\Omega_1^B\|_1=\sqrt3,
+\Vert \Omega_0^B-\Omega_1^B\Vert _1=\sqrt3,
 \qquad
 \Delta(0,1)=\frac{\sqrt3}{2},
 \qquad

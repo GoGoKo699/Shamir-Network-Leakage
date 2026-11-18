@@ -95,7 +95,7 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 
 - **Phase:** Background/preliminaries.
 - **Central question:** Which operator quantities measure distinguishability, and which quantities make its proof manageable?
-- **Understanding target:** Distinguish the trace, Hilbert–Schmidt and operator norms. Relate trace-norm duality and the Holevo–Helstrom theorem to optimal discrimination. Preserve the convention $`\Delta=\frac12\|\Omega_s-\Omega_{s'}\|_1`$: Watrous calls the full norm $`\|\rho-\sigma\|_1`$ trace distance.
+- **Understanding target:** Distinguish the trace, Hilbert–Schmidt and operator norms. Relate trace-norm duality and the Holevo–Helstrom theorem to optimal discrimination. Preserve the convention $`\Delta=\frac12\Vert \Omega_s-\Omega_{s'}\Vert _1`$: Watrous calls the full norm $`\Vert \rho-\sigma\Vert _1`$ trace distance.
 - **Dependencies and story role:** Requires M04–M08; joins the classical security convention to quantum states and measurements.
 - **Conceptual connection:** The theorem bounds trace norm, while its local coefficient estimates use weighted Hilbert–Schmidt norms or moments. Those quantities play different roles.
 - **Source pointers:** Watrous §1.1.3, including Eq. (1.182), and §3.1.1, Theorem 3.4; [model §4](../science/model.md#4-security-convention); [Watrous bridge](WATROUS_BRIDGE.md).
@@ -131,7 +131,7 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 
 - **Phase:** Background/preliminaries.
 - **Central question:** Which input frequencies survive averaging over the sharing randomness?
-- **Understanding target:** Recognize the affine sharing coset $`s\mathbf1+C_0`$ and its dual code $`C=C_0^\perp`$. Explain its dimension $`r=n-t+1`$, minimum nonzero weight $`t`$, and bijective projection onto any $`r`$ coordinates. Identify secret-independent surviving words as a possible additional cancellation.
+- **Understanding target:** Recognize the affine sharing coset $`s\mathbf1+C_0`$ and its dual code $`C=C_0^{⟂}`$. Explain its dimension $`r=n-t+1`$, minimum nonzero weight $`t`$, and bijective projection onto any $`r`$ coordinates. Identify secret-independent surviving words as a possible additional cancellation.
 - **Dependencies and story role:** Requires M01–M03 and M12; consolidates the classical algebra into the structure used by the security proof.
 - **Conceptual connection:** Character orthogonality removes frequencies outside the dual code; minimum distance forces every retained nonzero word to involve many devices.
 - **Source pointers:** [Fourier structure §1](../science/fourier.md#1-the-sharing-coset-and-its-dual-code); [MDS provenance](../references/RELATED_WORK.md#the-mds-inequality-and-minimum-distance-weighting). This coding-theory connection is supplied locally, outside the Watrous anchor's role.
@@ -214,7 +214,7 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 
 - **Phase:** Narrative/innovation.
 - **Central question:** Why does the full-threshold problem reduce exactly to the parity of all leaked bits?
-- **Understanding target:** Combine additive coordinates with the privacy of every proper share subset. Explain why proper output-parity operators are secret independent even with $`E`$, and obtain $`\Delta=\frac12\|F_{[n],E}(s)-F_{[n],E}(s')\|_1`$. Identify the surviving common-frequency words $`(k,\ldots,k)`$.
+- **Understanding target:** Combine additive coordinates with the privacy of every proper share subset. Explain why proper output-parity operators are secret independent even with $`E`$, and obtain $`\Delta=\frac12\Vert F_{[n],E}(s)-F_{[n],E}(s')\Vert _1`$. Identify the surviving common-frequency words $`(k,\ldots,k)`$.
 - **Dependencies and story role:** Requires M02–M03, M10, M12 and M20–M21. Gives the exact reduction used at $`t=n`$.
 - **Conceptual connection:** The single parity gives an equality and exposes the finite-prime factor in the next step.
 - **Source pointers:** [Fourier structure §5](../science/fourier.md#5-full-threshold-and-additive-coordinates) and [full-threshold proof §2](../science/full_threshold.md#2-additive-coordinates-and-the-single-relevant-parity). Watrous §2.3.2 supplies the partial-measurement interpretation.

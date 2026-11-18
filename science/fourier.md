@@ -11,7 +11,7 @@ Let
 ```math
 C_0=\mathrm{span}_{\mathbb F_p}
 \left\{(\alpha_i^j)_{i=1}^n:1\le j\le t-1\right\},
-\qquad C=C_0^\perp.
+\qquad C=C_0^{⟂}.
 ```
 
 The share vector is uniform on $`s\mathbf1+C_0`$. For $`t\ge2`$, coordinatewise multiplication by $`\alpha_i^{-1}`$ turns $`C_0`$ into the evaluation code of polynomials of degree at most $`t-2`$. Consequently
@@ -60,7 +60,7 @@ Hermiticity and the triangle inequality imply
 
 ```math
 A_i(-k)=A_i(k)^\dagger,
-\qquad \|A_i(k)\|_\infty\le1.
+\qquad \Vert A_i(k)\Vert _\infty\le1.
 ```
 
 Parseval is valid for these finite operator-valued sums:
@@ -97,7 +97,7 @@ Trace norm adds over classical blocks. Applying the triangle inequality inside e
 ```math
 \Delta(s,s')
 \le\frac12\sum_{S\subseteq[n]}
-\|F_{S,E}(s)-F_{S,E}(s')\|_1.
+\Vert F_{S,E}(s)-F_{S,E}(s')\Vert _1.
 ```
 
 The $`2^n`$ output strings exactly cancel the factor $`2^{-n}`$. This step is valid for arbitrary reference dimension. For the sharp general-threshold bound, expand each classical block directly as in Section 4.
@@ -126,7 +126,7 @@ The zero word cancels between two secrets. Every remaining phase difference has 
 \Delta(s,s')
 \le\sum_{S\subseteq[n]}
 \sum_{\substack{k\in C\setminus\{0\}\\\mathrm{supp}\,k\subseteq S}}
-\|T_{S,E}(k)\|_1.
+\Vert T_{S,E}(k)\Vert _1.
 ```
 
 The phase factor two cancels the one half in the distance convention. At full threshold the full-parity expression below is exact. For other thresholds, bounding each parity separately can lose the completeness of the inactive devices’ effects.
@@ -170,7 +170,7 @@ In these coordinates, the surviving input Fourier frequencies are diagonal words
 
 ```math
 \Delta(s,s')
-=\frac12\|F_{[n],E}(s)-F_{[n],E}(s')\|_1.
+=\frac12\Vert F_{[n],E}(s)-F_{[n],E}(s')\Vert _1.
 ```
 
 The [full-threshold proof](full_threshold.md) exploits this exact equality and pairs frequencies $`k`$ and $`-k`$. General thresholds require the dual-code summation because more output parities can depend on the secret.

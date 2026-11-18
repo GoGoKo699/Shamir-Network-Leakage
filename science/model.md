@@ -89,7 +89,7 @@ For distinct secrets $`s,s'`$, define
 
 ```math
 \Delta(s,s')
-=\frac12\left\|\Omega_s^{BE}-\Omega_{s'}^{BE}\right\|_1.
+=\frac12\left\Vert \Omega_s^{BE}-\Omega_{s'}^{BE}\right\Vert _1.
 ```
 
 With equal prior probabilities for the two secrets, optimal guessing succeeds with probability $`(1+\Delta)/2`$. Thus $`\Delta`$ is the difference between optimal acceptance probabilities, and its half is the excess guessing probability above $`1/2`$. With no reference, $`\Delta`$ is total variation distance between the two bit distributions.

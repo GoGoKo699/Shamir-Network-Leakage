@@ -16,8 +16,9 @@ Write $`\gamma_p=\cos(\pi/(2p))`$. If $`q\ge2`$, then
 \gamma_p\inf_{\lambda\ge1}\lambda^{-t}
 \left[\left(1+2^{1-q/2}\lambda^q\right)^r-1\right]
 \right\}.
-\tag{1.1}
 ```
+
+*Equation (1.1).*
 
 One directly computable choice is $`\lambda=\sqrt 2`$, which gives $`\gamma_p\,2^{-t/2}(3^r-1)`$, clipped at one. A second closed-form bound, valid for $`t\lt n`$ and $`q\ge2`$, follows by dropping the minus one in (1.1). With $`\tau=t/n`$ and $`h_2(u)=-u\log_2 u-(1-u)\log_2(1-u)`$, it is
 
@@ -25,8 +26,9 @@ One directly computable choice is $`\lambda=\sqrt 2`$, which gives $`\gamma_p\,2
 \Delta(s,s')
 \le \min\left\{1,\,
 \gamma_p 2^{-t/2+r[\tau+h_2(\tau)]}\right\}.
-\tag{1.2}
 ```
+
+*Equation (1.2).*
 
 For example, at $`n=1000`$ and $`t=950`$, (1.2) is below $`2^{-411.94}`$ for all primes $`p>n`$. At full threshold the choice $`\lambda=\sqrt 2`$ in (1.1) already recovers the [exact even-size bound](full_threshold.md#1-the-exact-law-for-even-size).
 
@@ -38,8 +40,9 @@ For nonnegative functions $`g_i:\mathbb F_p\to[0,\infty)`$ the inherited MDS Hö
 \sum_{k\in C}\prod_{i=1}^n g_i(k_i)
 \le\prod_{i=1}^n
 \left(\sum_{z\in\mathbb F_p}g_i(z)^q\right)^{1/q}.
-\tag{1.3}
 ```
+
+*Equation (1.3).*
 
 To see this, let $`\mathcal I`$ be the family of all $`r`$-coordinate sets and $`L=|\mathcal I|`$. Each coordinate occurs in $`Lr/n`$ sets, so the integrand equals the product over $`I\in\mathcal I`$ of $`\left[\prod_{i\in I}g_i(k_i)^q\right]^{1/L}`$. Hölder with $`L`$ equal exponents gives one sum over $`C`$ for each $`I`$. Since projection onto $`I`$ is a bijection, that sum factors as $`\prod_{i\in I}\sum_z g_i(z)^q`$. Counting the occurrences of each coordinate yields (1.3).
 
@@ -49,15 +52,17 @@ Use the local weights $`h_i`$ from the [support-only estimate](network_bounds.md
 \sum_{z\ne0} h_i(z)^q
 \le 2^{1-q/2}\sum_{z\ne0} h_i(z)^2
 \le 2^{1-q/2}.
-\tag{1.4}
 ```
+
+*Equation (1.4).*
 
 Every nonzero word has at least $`t`$ nonzero coordinates. Its product of $`g_i`$ exceeds or equals $`\lambda^t`$ times its original weight, and the zero word contributes exactly one. Thus (1.3) bounds the sum in the support-only estimate by
 
 ```math
 \lambda^{-t}\left[\left(1+2^{1-q/2}\lambda^q\right)^r-1\right].
-\tag{1.5}
 ```
+
+*Equation (1.5).*
 
 This proves (1.1). To obtain (1.2), let $`x=\lambda^q`$ and $`\beta=2^{1-q/2}`$ and minimize $`x^{-t/q}(1+\beta x)^r`$. The minimum for $`t\lt n`$ occurs at $`x=\tau/[(1-\tau)\beta]\ge1`$. Substitution gives $`2^{r[h_2(\tau)+\tau\log_2\beta]}=2^{-t/2+r[\tau+h_2(\tau)]}`$. The condition $`q\ge2`$ ensures $`\beta\le1`$ and $`\tau>1/2`$.
 
@@ -69,8 +74,9 @@ Fix $`0\lt \eta\lt 1/2`$. There are constants $`A_\eta>0`$, $`b_\eta>0`$ and $`n
 \sqrt{2}\,\gamma_p\,2^{-t/2}
 \le \Delta_{\max}(s,s')
 \le A_\eta n^{b_\eta}2^{-t/2}.
-\tag{2.1}
 ```
+
+*Equation (2.1).*
 
 Equivalently, $`-\log_2\Delta_{\max}(s,s')=t/2+O_\eta(\log n)`$. The constants are uniform in $`p`$ and the evaluation points. The upper bound applies on every prescribed graph, including the complete graph. The lower bound uses a Bell-pair matching on reconstruction positions, which is available when optimizing over graphs.
 
