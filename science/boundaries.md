@@ -109,7 +109,7 @@ For comparison, retain a *classical* copy of the preparation label:
 ```
 The same equatorial measurements now produce independent uniform bits in each branch. The whole output, including $`\Lambda E`$, is independent of the secret, and its distinguishing distance is exactly zero.
 
-The device marginals of these two experiments agree. Their extensions differ, and the coherent extension does not satisfy the branchwise classical-seed hypothesis. In the finite check $`n=5,p=7`$, the coherent distance is $`0.9749279122\ldots`$; applying the product-marginal bound to this inadmissible extension would incorrectly give $`0.8198133865\ldots`$. The [verification script](../verification/README.md) obtains both cq distances directly from the measurement amplitudes.
+The device marginals of these two experiments agree. Their extensions differ, and the coherent extension does not satisfy the branchwise classical-seed hypothesis. In the finite check $`n=5,p=7`$, the coherent distance is $`0.9749279122\ldots`$; applying the product-marginal bound to this inadmissible extension would incorrectly give at most $`2^{-3/2}\cos(\pi/14)\approx0.344689`$. The [verification script](../verification/README.md) obtains both cq distances directly from the measurement amplitudes.
 
 ## A source graph is not a stabilizer graph state
 

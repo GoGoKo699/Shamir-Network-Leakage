@@ -1,6 +1,6 @@
 # Shamir Network Leakage
 
-**Can a dense network of pairwise quantum resources turn one leaked bit per Shamir share into significant information about the secret?** Independent bipartite sources still permit exponential secrecy, even when every pair of devices is connected and the adversary retains quantum side information.
+**Can a dense network of pairwise quantum resources turn one leaked bit per Shamir share into significant information about the secret?** Exponential secrecy holds at every fixed reconstruction rate above one half, even when every pair of devices is connected by an independent source and the adversary retains an arbitrary joint quantum reference.
 
 The shares and leaked bits are classical. Each device may perform an arbitrary joint measurement on its local quantum registers, using its share to choose that measurement. The source state is independent of the secret and sharing randomness, and the devices act without communication or adversary feedback during leakage. The [model](science/model.md) specifies the reference and source-independence assumptions.
 
@@ -9,30 +9,30 @@ The shares and leaked bits are classical. Each device may perform an arbitrary j
 Let $`n`$ be the number of shares, $`t`$ the reconstruction threshold, and $`p>n`$ an odd prime. Write
 
 ```math
-\Delta(s,s')=\frac12\|\Omega_s^{BE}-\Omega_{s'}^{BE}\|_1
+\Delta(s,s')=\frac12\Vert \Omega_s^{BE}-\Omega_{s'}^{BE}\Vert _1
 ```
 
 for the distance between the adversary's final states under two chosen secrets.
 
-| Reference scope | Reconstruction regime | Guarantee |
-|---|---|---|
-| Arbitrary extension of the independent-source device marginal | Every fixed $`t/n>0.9042045925\ldots`$ by a positive margin | Exponentially small $`\Delta`$, uniformly over all graphs and finite dimensions |
-| No external quantum reference | Every fixed $`t/n>0.7569352556\ldots`$ by a positive margin | A stronger sufficient exponential-security regime |
-| Arbitrary extension | $`t=n`$, $`n\ge4`$ | $`\Delta\le2^{1-n/4}\cos(\pi/(2p))`$ |
-| No reference, or reference as another vertex of the bipartite-source graph | $`t=n`$, $`n\ge2`$ | $`\Delta\le2^{1-n/2}\cos(\pi/(2p))`$; exact for even $`n`$ over the allowed class |
+| Reconstruction regime | Worst-case distance over admissible graphs and references |
+|---|---|
+| $`t/n\ge1/2+\eta`$ for any fixed $`\eta>0`$ | $`-\log_2\Delta^\star=t/2+O_\eta(\log n)`$, uniformly in the field and evaluation points |
+| $`t=n`$, even $`n\ge2`$ | Exactly $`2^{1-n/2}\cos(\pi/(2p))`$ |
+| $`t=n`$, odd $`n\ge3`$ | At most the same formula, with matching exponential order |
 
-In the last row, a matching of Bell pairs attains the bound. No denser network improves this worst-case value. A fixed graph attains it whenever it contains a perfect matching. The bound with an arbitrary purifying reference is not asserted sharp, and both general-threshold rates are sufficient conditions rather than optimal thresholds.
+Here $`\Delta^\star`$ is the maximum possible leakage in the sense of a supremum over permitted strategies and graphs for each prescribed secret pair. Bell pairs on a reconstruction set give the matching exponent. At full threshold with even $`n`$, a perfect matching of Bell pairs attains the exact value. The rate theorem uses a fixed margin above one half. The behavior at the boundary and below remains open in this model.
 
-The arbitrary-reference finite bound is explicit. Put $`\tau=t/n`$ and assume $`n/(n-t+1)\ge4`$. Then
+An elementary finite bound applies when $`q=n/(n-t+1)\ge2`$. With $`\tau=t/n`$ and binary entropy $`h_2`$,
 
 ```math
 \Delta(s,s')\le
-\min\left\{1,
-2^{\,n-5t/4+(n-t+1)[\tau+h_2(\tau)]}
-\right\},
+\min\left\{1,\,
+\cos\left(\frac{\pi}{2p}\right)
+2^{-t/2+(n-t+1)[\tau+h_2(\tau)]}
+\right\}.
 ```
 
-where $`h_2`$ is binary entropy. At $`n=1000`$ and $`t=950`$, this bound is below $`2^{-124}`$. The [general-threshold proof](science/general_threshold.md) gives the finite optimization and the asymptotic rate statements.
+At $`n=1000`$ and $`t=950`$, this is below $`2^{-411}`$. The [general-threshold proof](science/general_threshold.md) gives the sharper finite optimization and the argument for the exact leading exponent.
 
 ## Read the science
 
@@ -49,7 +49,7 @@ Start with the [scientific route](science/README.md) or go directly to a result:
 | Which ingredients and nearby results are established prior work? | [Related work](references/RELATED_WORK.md) and [bibliography](references/references.bib) |
 | What calculations can be reproduced? | [Verification](verification/README.md) |
 
-The graph inequality, Fourier methods and MDS inequality are inherited. The security result combines them to cover **arbitrarily overlapping independent bipartite sources**, including complete source graphs. The closest source-network reduction selects a large integral independent vertex set; the present one-bit bound remains effective when no such set exists. The [comparison](references/RELATED_WORK.md) preserves the different output and reference assumptions of earlier results.
+The proof bounds each Fourier word after summing the positive measurement effects at its inactive devices. This gives a product of local second-moment factors on the word’s support. The inherited quantum Finner inequality and weighted code estimates then give a graph-uniform bound. The [related-work comparison](references/RELATED_WORK.md) traces these ingredients and the closest independent-set reduction.
 
 ## Learn the argument
 
@@ -65,7 +65,7 @@ From the repository root, run:
 python3 verification/check_results.py
 ```
 
-The standard-library checks compare direct leakage distributions with the analytical Bell-pair value, verify finite-field Fourier bookkeeping, reproduce the scalar optimizations, and evaluate the coherent-purification counterexample. Their [documentation](verification/README.md) explains the cases and expected outputs. The graph- and dimension-uniform claims are established by the written proofs.
+The standard-library checks compare direct leakage distributions with the matching constructions, check the support-only coefficient bound on small instances, reproduce the elementary finite bounds, and evaluate the coherent-purification counterexample. Their [documentation](verification/README.md) explains the cases and expected outputs. The graph- and dimension-uniform claims are established by the written proofs.
 
 ## Source structure matters
 

@@ -52,7 +52,7 @@ def bell_born_probability(theta_a: float, theta_b: float, bits: int) -> float:
 
 
 def matching_distribution(
-    n: int, p: int, secret: int, frequency: int, total_phase: float
+    n: int, p: int, secret: int, frequency: int, total_phase: float, sharings=None
 ) -> list[float]:
     tables = []
     for edge in range(n // 2):
@@ -64,7 +64,9 @@ def matching_distribution(
             table[x, y] = [bell_born_probability(*angles, b) for b in range(4)]
         tables.append(table)
     distribution = [0.0] * (1 << n)
-    for shares in additive_shares(n, p, secret):
+    if sharings is None:
+        sharings = additive_shares(n, p, secret)
+    for shares in sharings:
         probabilities = [1.0]
         for edge, table in enumerate(tables):
             pair = table[shares[2 * edge], shares[2 * edge + 1]]
@@ -74,7 +76,10 @@ def matching_distribution(
                 for high in range(4)
                 for low in range(len(probabilities))
             ]
-        for output, probability in enumerate(probabilities):
+        offset = 0
+        if n % 2 and math.cos(2 * math.pi * frequency * shares[-1] / p) < 0:
+            offset = 1 << (n - 1)
+        for output, probability in enumerate(probabilities, start=offset):
             distribution[output] += probability
     count = p ** (n - 1)
     return [probability / count for probability in distribution]
@@ -112,6 +117,50 @@ def check_matching() -> list[dict]:
             "outcomes": 1 << n,
             "direct_total_variation": actual,
             "exact_formula": claimed,
+        })
+    return results
+
+
+def scaled_reconstruction_shares(points: tuple[int, ...], p: int, secret: int):
+    weights = [
+        math.prod(-y * pow((x - y) % p, -1, p) for y in points if y != x) % p
+        for x in points
+    ]
+    for coefficients in itertools.product(range(p), repeat=len(points) - 1):
+        yield tuple(
+            weight * (secret + sum(c * pow(point, j, p)
+                                   for j, c in enumerate(coefficients, start=1))) % p
+            for point, weight in zip(points, weights)
+        )
+
+
+def check_odd_reconstruction_set() -> list[dict]:
+    results = []
+    for n, t, p, secrets in [(5, 3, 7, (0, 1)), (6, 5, 7, (2, 5))]:
+        points = (n,) + tuple(range(1, t))
+        s, other = secrets
+        frequency = ((p - 1) // 2) * pow((s - other) % p, -1, p) % p
+        phase = math.pi / 2 - math.pi * frequency * (s + other) / p
+        distributions = []
+        for secret in secrets:
+            sharings = set(scaled_reconstruction_shares(points, p, secret))
+            require(sharings == set(additive_shares(t, p, secret)),
+                    "Lagrange scaling failed to recover uniform additive shares")
+            distribution = matching_distribution(t, p, secret, frequency, phase, sorted(sharings))
+            close(sum(distribution), 1.0, "Odd strategy probability normalization")
+            distributions.append(distribution)
+        for mask in range(1, (1 << t) - 1):
+            close(parity_expectation(distributions[0], mask),
+                  parity_expectation(distributions[1], mask), "Proper parity depends on secret")
+        actual = sum(abs(a - b) for a, b in zip(*distributions)) / 2
+        sign_coefficient = sum(abs(math.cos(2 * math.pi * x / p)) for x in range(p)) / p
+        require(sign_coefficient >= 1 / 2, "Odd singleton coefficient floor")
+        claimed = 2 ** (1 - (t - 1) / 2) * sign_coefficient * math.cos(math.pi / (2 * p))
+        close(actual, claimed, "Odd reconstruction-set witness")
+        results.append({
+            "n": n, "t": t, "p": p, "secrets": list(secrets),
+            "reconstruction_points": list(points), "singleton_coefficient": sign_coefficient,
+            "direct_total_variation": actual, "witness_formula": claimed,
         })
     return results
 
@@ -241,6 +290,113 @@ def check_shamir_fourier() -> list[dict]:
     return results
 
 
+def triangle_effect(p: int, device: int, share: int, bit: int) -> list[list[complex]]:
+    """A binary effect at a two-qubit vertex of the triangle fixture."""
+    frequency = (2, 4, 1)[device]
+    angle = 2 * math.pi * frequency * share / p
+    effect = [[0j] * 4 for _ in range(4)]
+    sign = (-1) ** bit
+    for column in range(4):
+        effect[column][column] = (1 + sign * (0.12 + 0.04 * (-1) ** (column & 1))) / 2
+        effect[column ^ 2][column] = sign * 0.55 * cmath.exp(1j * (-1) ** (column >> 1) * angle) / 2
+        effect[column ^ 1][column] = sign * 0.20 * cmath.exp(2j * (-1) ** (column & 1) * angle) / 2
+    return effect
+
+
+def triangle_reference_block(operators) -> list[complex]:
+    """Trace devices out of a triangle with one purified mixed source and two Bell sources."""
+    terms = [((2 * a + c, 2 * a + b, 2 * b + c), a, math.sqrt((0.6, 0.4)[a]) / 2)
+             for a, b, c in itertools.product(range(2), repeat=3)]
+    block = [0j] * 4
+    for states, a, amp in terms:
+        for other_states, other_a, other_amp in terms:
+            block[2 * a + other_a] += amp * other_amp * math.prod(
+                op[y][x] for op, x, y in zip(operators, states, other_states)
+            )
+    return block
+
+
+def qubit_trace_norm(block: list[complex]) -> float:
+    """Sum the singular values of a complex two-by-two Fourier block."""
+    a, b, c, d = block
+    return math.sqrt(sum(abs(x) ** 2 for x in block) + 2 * abs(a * d - b * c))
+
+
+def fourier_triangle_effects(outcome, omega: complex, p: int):
+    matrices = []
+    for z in range(p):
+        phases = [omega ** (-x * z) / p for x in range(p)]
+        matrices.append([
+            [sum(phase * matrix[a][b] for phase, matrix in zip(phases, outcome))
+             for b in range(4)]
+            for a in range(4)
+        ])
+    return matrices
+
+
+def check_support_only_reference() -> dict:
+    p, points = 5, (1, 2, 3)
+    omega = cmath.exp(2j * math.pi / p)
+    effects = [[[triangle_effect(p, device, x, bit) for x in range(p)]
+                for bit in (0, 1)] for device in range(3)]
+    fourier = [[fourier_triangle_effects(outcome, omega, p) for outcome in vertex]
+               for vertex in effects]
+    masses = []
+    for device, vertex in enumerate(fourier):
+        diagonal = (0.3, 0.3, 0.2, 0.2) if device != 2 else (0.25,) * 4
+        second_moments = []
+        for plus, minus in zip(*vertex):
+            second_moments.append(sum(
+                diagonal[b] * abs(plus[a][b] - minus[a][b]) ** 2
+                for a, b in itertools.product(range(4), repeat=2)
+            ))
+        masses.append([(second_moments[z] * second_moments[-z % p]) ** 0.25 for z in range(p)])
+    outcomes = list(itertools.product(range(2), repeat=3))
+    expansions = [[0j] * 4 for _ in outcomes]
+    majorant = 0.0
+    proper_support_terms = 0
+    words = [word for word in itertools.product(range(p), repeat=3)
+             if any(word) and sum(a * k for a, k in zip(points, word)) % p == 0]
+    for word in words:
+        coefficient_norm = 0.0
+        for output, expansion in zip(outcomes, expansions):
+            block = triangle_reference_block([vertex[b][k] for vertex, b, k in zip(fourier, output, word)])
+            coefficient_norm += qubit_trace_norm(block)
+            for i, element in enumerate(block):
+                expansion[i] += (1 - omega ** sum(word)) * element
+        bound = math.prod(h[k] for h, k in zip(masses, word) if k)
+        require(coefficient_norm <= bound + TOLERANCE, "Support-only coefficient bound violated")
+        majorant += abs(1 - omega ** sum(word)) * bound / 2
+        if not all(word) and coefficient_norm > TOLERANCE:
+            proper_support_terms += 1
+    require(proper_support_terms > 0, "Fixture must exercise inactive outcomes")
+
+    distance = 0.0
+    bit_only_distance = 0.0
+    for output, expansion in zip(outcomes, expansions):
+        direct = [0j] * 4
+        for secret in (0, 1):
+            for slope in range(p):
+                shares = [(secret + slope * point) % p for point in points]
+                block = triangle_reference_block([vertex[b][x] for vertex, b, x in zip(effects, output, shares)])
+                for i, element in enumerate(block):
+                    direct[i] += (-1) ** secret * element / p
+        for actual, expected in zip(direct, expansion):
+            close(actual, expected, "Direct quantum output block disagrees with Fourier expansion")
+        distance += qubit_trace_norm(direct) / 2
+        bit_only_distance += abs(direct[0] + direct[3]) / 2
+    require(distance <= majorant + TOLERANCE, "Direct reference distance exceeds weighted bound")
+    require(distance > bit_only_distance + TOLERANCE, "Fixture must retain information in the reference")
+    return {
+        "n": 3, "t": 2, "p": p,
+        "nonzero_dual_words_checked": len(words),
+        "nonvanishing_proper_support_terms": proper_support_terms,
+        "direct_cq_trace_distance": distance,
+        "leaked_bits_only_distance": bit_only_distance,
+        "phase_weighted_support_only_majorant": majorant,
+    }
+
+
 def logsumexp2(a: float, b: float) -> float:
     high, low = max(a, b), min(a, b)
     return high + math.log2(1 + 2 ** (low - high))
@@ -275,97 +431,40 @@ def numerical_minimum(function) -> tuple[float, float]:
     return optimum, value
 
 
-def root_of_decreasing_crossing(function, low: float, high: float) -> float:
-    require(function(low) > 0 > function(high), "Root is not bracketed")
-    for _ in range(65):
-        middle = (low + high) / 2
-        if function(middle) > 0:
-            low = middle
-        else:
-            high = middle
-    return (low + high) / 2
+def support_only_log_bound(n: int, t: int, log_lambda: float, subtract_zero: bool) -> float:
+    r = n - t + 1
+    q = n / r
+    log_partition = r * logsumexp2(0.0, 1 - q / 2 + q * log_lambda)
+    if subtract_zero:
+        log_partition += math.log2(-math.expm1(-log_partition * math.log(2)))
+    return -t * log_lambda + log_partition
 
 
-def reference_log_bound(n: float, t: float, q: float, log_lambda: float) -> float:
-    return -t * log_lambda + (n / q) * logsumexp2(
-        q, 1 - q / 4 + q * log_lambda
-    )
-
-
-def scalar_log_bound(n: float, t: float, q: float, log_lambda: float) -> float:
-    return -t * log_lambda + max(
-        (n / q) * logsumexp2(0.0, 1 - q / 2 + q * log_lambda), n / 2
-    )
-
-
-def check_optimization() -> dict:
+def check_optimization() -> list[dict]:
     finite = []
-    for n, t in [(40, 37), (100, 95), (1000, 950)]:
-        q = n / (n - t + 1)
+    for n, t in [(10, 6), (40, 37), (1000, 950)]:
+        r = n - t + 1
         tau = t / n
-        _, actual = numerical_minimum(
-            lambda x: reference_log_bound(n, t, q, x)
+        log_lambda, relaxed = numerical_minimum(
+            lambda x: support_only_log_bound(n, t, x, subtract_zero=False)
         )
-        closed = n - 5 * t / 4 + (n - t + 1) * (tau + entropy2(tau))
-        close(actual, closed, "Finite arbitrary-reference optimization")
-        simple = n - 5 * t / 4 + (n - t + 1) * math.log2(3)
-        close(reference_log_bound(n, t, q, 1.25), simple,
-              "Explicit lambda=2^(5/4) bound")
+        closed = -t / 2 + r * (tau + entropy2(tau))
+        close(relaxed, closed, "Relaxed support-only finite optimization")
+        retained = support_only_log_bound(n, t, log_lambda, subtract_zero=True)
+        require(retained <= relaxed + TOLERANCE, "Subtracting the zero word increased the bound")
+        simple = -t / 2 + math.log2(3 ** r - 1)
+        close(support_only_log_bound(n, t, 0.5, subtract_zero=True), simple,
+              "Explicit lambda=sqrt(2) bound")
         finite.append({
-            "n": n, "t": t, "q": q,
-            "numerical_log2_bound": actual,
-            "closed_log2_bound": closed,
-            "simple_log2_bound": simple,
+            "n": n, "t": t, "q": n / r,
+            "relaxed_numerical_log2_bound": relaxed,
+            "relaxed_closed_log2_bound": closed,
+            "zero_word_subtracted_at_relaxed_optimizer_log2_bound": retained,
+            "lambda_sqrt_two_log2_bound": simple,
         })
-    scalar_finite = []
-    for n, t in [(10, 6), (40, 35)]:
-        q = n / (n - t + 1)
-        tau = t / n
-        beta = 2 ** (1 - q / 2)
-        crossing = (2 ** (q / 2) - 1) / beta
-        stationary = tau / (beta * (1 - tau))
-        closed_log_lambda = math.log2(max(crossing, stationary)) / q
-        closed = scalar_log_bound(n, t, q, closed_log_lambda)
-        _, actual = numerical_minimum(lambda x: scalar_log_bound(n, t, q, x))
-        close(actual, closed, "Finite scalar piecewise optimization")
-        scalar_finite.append({
-            "n": n, "t": t, "q": q,
-            "active_optimizer": "crossing" if crossing >= stationary else "stationary",
-            "numerical_log2_bound": actual,
-            "closed_log2_bound": closed,
-        })
-    reference_numeric = root_of_decreasing_crossing(
-        lambda tau: numerical_minimum(
-            lambda x: reference_log_bound(1.0, tau, 1 / (1 - tau), x)
-        )[1], 0.75, 0.99
-    )
-    reference_closed = root_of_decreasing_crossing(
-        lambda tau: 1 - 5 * tau / 4
-        + (1 - tau) * (tau + entropy2(tau)), 0.75, 0.99
-    )
-    close(reference_numeric, reference_closed, "Reference sufficient-rate root")
-    scalar_numeric = root_of_decreasing_crossing(
-        lambda tau: numerical_minimum(
-            lambda x: scalar_log_bound(1.0, tau, 1 / (1 - tau), x)
-        )[1], 0.75, 0.99
-    )
-    scalar_closed = root_of_decreasing_crossing(
-        lambda tau: 0.5 - tau * (
-            tau + (1 - tau) * math.log2(
-                1 - 2 ** (-1 / (2 * (1 - tau)))
-            )
-        ), 0.75, 0.99
-    )
-    close(scalar_numeric, scalar_closed, "Scalar sufficient-rate root")
-    return {
-        "finite_arbitrary_reference": finite,
-        "finite_no_reference": scalar_finite,
-        "reference_sufficient_rate_numerical": reference_numeric,
-        "reference_sufficient_rate_closed": reference_closed,
-        "scalar_sufficient_rate_numerical": scalar_numeric,
-        "scalar_sufficient_rate_closed": scalar_closed,
-        "interpretation": "sufficient rates from stated bounds; not optimal security thresholds",
-    }
+    close(support_only_log_bound(4, 4, 0.5, subtract_zero=True), -1.0,
+          "Full-threshold support-only factor before the finite-prime phase")
+    return finite
 
 
 def ghz_and_flagged_cq_blocks(n: int, p: int, secret: int, frequency: int):
@@ -432,7 +531,7 @@ def check_coherent_mixture_boundary() -> dict:
     marginal_t = [[sum(block[j] for block in coherent_t) for j in range(4)]]
     close(cq_distance(marginal_s, marginal_t), 0.0,
           "The reference without the leaked bits must not signal the secret")
-    hypothetical_bound = 2 ** (1 - n / 4) * claimed
+    hypothetical_bound = 2 ** (1 - n / 2) * claimed
     require(coherent_distance > hypothetical_bound + 0.01,
             "Counterexample did not separate the invalid relaxed hypothesis")
     return {
@@ -473,10 +572,12 @@ def main() -> None:
     args = parser.parse_args()
     started = perf_counter()
     results = {
-        "schema_version": 1,
+        "schema_version": 2,
         "matching_born_enumeration": check_matching(),
+        "odd_reconstruction_set_enumeration": check_odd_reconstruction_set(),
         "exact_shamir_fourier": check_shamir_fourier(),
-        "bound_optimization": check_optimization(),
+        "triangle_support_only_reference": check_support_only_reference(),
+        "support_only_bound_optimization": check_optimization(),
         "coherent_mixture_boundary": check_coherent_mixture_boundary(),
     }
     if args.write_expected:
@@ -490,8 +591,10 @@ def main() -> None:
         print(json.dumps(results, indent=2))
     else:
         print("PASS: explicit Bell Born-rule leakage distributions (n=2,4,6)")
+        print("PASS: odd reconstruction sets with a Bell matching and singleton bit")
         print("PASS: exact Shamir dual-code, Fourier, and output-parity identities")
-        print("PASS: finite bound minimization and both sufficient-rate crossings")
+        print("PASS: mixed triangle reference blocks and support-only coefficient inequalities")
+        print("PASS: finite support-only bound formulas and relaxed minimization")
         print("PASS: coherent purification and genuinely classical flag boundary")
         print(f"PASS: {snapshot_status}")
         print(f"Elapsed: {perf_counter() - started:.2f} seconds")

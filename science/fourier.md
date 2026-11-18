@@ -11,7 +11,7 @@ Let
 ```math
 C_0=\mathrm{span}_{\mathbb F_p}
 \left\{(\alpha_i^j)_{i=1}^n:1\le j\le t-1\right\},
-\qquad C=C_0^\perp.
+\qquad C=C_0^{⟂}.
 ```
 
 The share vector is uniform on $`s\mathbf1+C_0`$. For $`t\ge2`$, coordinatewise multiplication by $`\alpha_i^{-1}`$ turns $`C_0`$ into the evaluation code of polynomials of degree at most $`t-2`$. Consequently
@@ -60,7 +60,7 @@ Hermiticity and the triangle inequality imply
 
 ```math
 A_i(-k)=A_i(k)^\dagger,
-\qquad \|A_i(k)\|_\infty\le1.
+\qquad \Vert A_i(k)\Vert _\infty\le1.
 ```
 
 Parseval is valid for these finite operator-valued sums:
@@ -70,7 +70,7 @@ Parseval is valid for these finite operator-valued sums:
 =\frac1p\sum_y M_i(y)^2\preceq I.
 ```
 
-It follows by expanding the left side and using $`\sum_k\omega^{k(y-z)}=p\,\mathbf1_{y=z}`$. The [network estimates](network_bounds.md) use this identity to obtain symmetric second- or fourth-moment budgets. No trace-norm Parseval identity is asserted.
+It follows by expanding the left side and using $`\sum_k\omega^{k(y-z)}=p\,\mathbf1_{y=z}`$. The [network estimates](network_bounds.md) use this identity to obtain a symmetric second-moment budget. No trace-norm Parseval identity is asserted.
 
 ## 3. Output parities with a quantum reference
 
@@ -97,10 +97,10 @@ Trace norm adds over classical blocks. Applying the triangle inequality inside e
 ```math
 \Delta(s,s')
 \le\frac12\sum_{S\subseteq[n]}
-\|F_{S,E}(s)-F_{S,E}(s')\|_1.
+\Vert F_{S,E}(s)-F_{S,E}(s')\Vert _1.
 ```
 
-The $`2^n`$ output strings exactly cancel the factor $`2^{-n}`$. This step is valid for arbitrary reference dimension. It is the output estimate used in the reference-secure general-threshold theorem.
+The $`2^n`$ output strings exactly cancel the factor $`2^{-n}`$. This step is valid for arbitrary reference dimension. For the sharp general-threshold bound, expand each classical block directly as in Section 4.
 
 Insert the local Fourier expansions. For $`k\in\mathbb F_p^n`$ with $`\mathrm{supp}\,k\subseteq S`$, set
 
@@ -126,24 +126,30 @@ The zero word cancels between two secrets. Every remaining phase difference has 
 \Delta(s,s')
 \le\sum_{S\subseteq[n]}
 \sum_{\substack{k\in C\setminus\{0\}\\\mathrm{supp}\,k\subseteq S}}
-\|T_{S,E}(k)\|_1.
+\Vert T_{S,E}(k)\Vert _1.
 ```
 
-The phase factor two cancels the one half in the distance convention. This is the starting point of [the arbitrary-reference threshold bound](general_threshold.md).
+The phase factor two cancels the one half in the distance convention. At full threshold the full-parity expression below is exact. For other thresholds, bounding each parity separately can lose the completeness of the inactive devices’ effects.
 
-## 4. The stronger scalar output estimate
+## 4. Fourier coefficients of the individual effects
 
-Without an external quantum reference, $`F_S(s)`$ and $`T_S(k)`$ are scalars. If $`d_S=F_S(s)-F_S(s')`$, Cauchy–Schwarz over output strings and scalar Parseval give
+To control all outcomes together, define an operator for each local bit and frequency:
 
 ```math
-\begin{aligned}
-\Delta(s,s')
-&=\frac12\,2^{-n}\sum_b\left|\sum_S\chi_S(b)d_S\right|\\
-&\le\frac12\left(\sum_S|d_S|^2\right)^{1/2}.
-\end{aligned}
+\widehat P_i(b,z)=\frac1p\sum_{y\in\mathbb F_p}\omega^{-zy}P_i(b\mid y),
+\qquad B_i(b)=\widehat P_i(b,0).
 ```
 
-This retains a square-sum over output parities rather than their sum of norms. Minkowski's inequality can then move the sum over nonzero codewords outside that Euclidean norm. It produces the stronger no-reference general-threshold estimate. The reference-secure proof uses the preceding trace-norm triangle inequality instead.
+For $`z\ne0`$, the identity part of the effect cancels and $`\widehat P_i(b,z)=(-1)^b A_i(z)/2`$. At zero frequency $`B_i(b)\succeq0`$ and $`B_i(0)+B_i(1)=I`$. Character orthogonality applied to the effects directly gives the $`b`$ block of $`\Omega_s^{BE}`$:
+
+```math
+\sum_{k\in C}\omega^{s\sum_i k_i}
+\mathrm{Tr}_D\!\left[
+\left(\bigotimes_i\widehat P_i(b_i,k_i)\otimes I_E\right)\rho_{DE}
+\right].
+```
+
+For a fixed word $`k`$, the active bit labels contribute only signs and an overall power of one half. At the inactive sites the positive effects remain inside the operator. The [network estimate](network_bounds.md#4-second-moments-with-an-arbitrary-external-reference) sums these effects before applying quantum Finner. Their completeness is the reason the bound has a factor only on each nonzero coordinate.
 
 ## 5. Full threshold and additive coordinates
 
@@ -164,7 +170,7 @@ In these coordinates, the surviving input Fourier frequencies are diagonal words
 
 ```math
 \Delta(s,s')
-=\frac12\|F_{[n],E}(s)-F_{[n],E}(s')\|_1.
+=\frac12\Vert F_{[n],E}(s)-F_{[n],E}(s')\Vert _1.
 ```
 
 The [full-threshold proof](full_threshold.md) exploits this exact equality and pairs frequencies $`k`$ and $`-k`$. General thresholds require the dual-code summation because more output parities can depend on the secret.

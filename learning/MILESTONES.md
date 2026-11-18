@@ -13,7 +13,7 @@ The single educational anchor is **John Watrous, *The Theory of Quantum Informat
 
 Fourteen background milestones are warranted because neither side of this problem can replace the other. Finite-field interpolation and MDS codes explain how a secret enters correlated classical shares. Quantum states, measurements, extensions and norms explain what the leakage devices and adversary can do. M14 joins these prerequisites into the exact experiment whose security is proved.
 
-The sixteen narrative milestones move from a single network contraction to the whole secrecy statement. M15–M20 establish two coefficient bounds with different reference assumptions. M21–M24 turn them into the full-threshold results and the matching construction. M25–M28 handle the additional parity terms below full threshold. M29 makes the resource boundary concrete, and M30 integrates the meaning, attribution, scope and evidence. This phase includes inherited ingredients needed for the result; its name does not claim that each ingredient is new.
+The sixteen narrative milestones move from a network contraction to the secrecy theorem. M15–M21 connect graph bounds, polar decomposition and the sum over leaked outcomes. M22–M24 derive and attain the full-threshold optimum for even size. M25–M28 give an explicit finite bound and then match the leading exponent above one half. M29 tests the resource assumptions, and M30 brings the argument and its limitations together.
 
 Dependencies name earlier milestones supplying the essential ideas. Source pointers lead to the canonical statements and proofs, so this map need not duplicate their full derivations.
 
@@ -26,7 +26,7 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 - **Understanding target:** Interpret addition, multiplication and nonzero inverses in $`\mathbb F_p`$. Explain why distinct nonzero evaluation points exist when the odd prime satisfies $`p>n`$, and why equations and randomness in this field have exact finite meanings.
 - **Dependencies and story role:** Starting point for the classical side of the problem; establishes the objects on which sharing and Fourier analysis act.
 - **Conceptual connection:** Invertible field arithmetic makes interpolation possible and later lets a nonzero secret difference select a Fourier phase.
-- **Source pointers:** [Model §1](../science/model.md#1-shares-and-public-parameters); [full-threshold proof §4](../science/full_threshold.md#4-an-attack-attaining-the-graph-vertex-bound-for-even-size) for the later use of inverses. Finite-field background is supplied locally, not by a claimed Watrous section.
+- **Source pointers:** [Model §1](../science/model.md#1-shares-and-public-parameters); [full-threshold proof §4](../science/full_threshold.md#4-bell-pair-attainment) for the later use of inverses. Finite-field background is supplied locally, not by a claimed Watrous section.
 
 ### M02 — Polynomial interpolation and reconstruction
 
@@ -71,7 +71,7 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 - **Understanding target:** Read tensor products as joint-system structure, without assuming that every joint state factors. Explain reduced states and partial trace, and distinguish a product state from an entangled state using the Bell pair as the relevant example.
 - **Dependencies and story role:** Requires M05; moves from individual quantum registers to correlated devices and an adversary.
 - **Conceptual connection:** Devices can each hold many edge registers. Regrouping those registers by device changes their presentation, not the independence of the original sources.
-- **Source pointers:** Watrous §§1.1.1–1.1.2 and §2.1.3; [model §2](../science/model.md#2-independent-bipartite-source-resources); [Bell-pair construction](../science/full_threshold.md#4-an-attack-attaining-the-graph-vertex-bound-for-even-size).
+- **Source pointers:** Watrous §§1.1.1–1.1.2 and §2.1.3; [model §2](../science/model.md#2-independent-bipartite-source-resources); [Bell-pair construction](../science/full_threshold.md#4-bell-pair-attainment).
 
 ### M07 — Purifications and extensions
 
@@ -95,7 +95,7 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 
 - **Phase:** Background/preliminaries.
 - **Central question:** Which operator quantities measure distinguishability, and which quantities make its proof manageable?
-- **Understanding target:** Distinguish the trace, Hilbert–Schmidt and operator norms. Relate trace-norm duality and the Holevo–Helstrom theorem to optimal discrimination. Preserve the convention $`\Delta=\frac12\|\Omega_s-\Omega_{s'}\|_1`$: Watrous calls the full norm $`\|\rho-\sigma\|_1`$ trace distance.
+- **Understanding target:** Distinguish the trace, Hilbert–Schmidt and operator norms. Relate trace-norm duality and the Holevo–Helstrom theorem to optimal discrimination. Preserve the convention $`\Delta=\frac12\Vert \Omega_s-\Omega_{s'}\Vert _1`$: Watrous calls the full norm $`\Vert \rho-\sigma\Vert _1`$ trace distance.
 - **Dependencies and story role:** Requires M04–M08; joins the classical security convention to quantum states and measurements.
 - **Conceptual connection:** The theorem bounds trace norm, while its local coefficient estimates use weighted Hilbert–Schmidt norms or moments. Those quantities play different roles.
 - **Source pointers:** Watrous §1.1.3, including Eq. (1.182), and §3.1.1, Theorem 3.4; [model §4](../science/model.md#4-security-convention); [Watrous bridge](WATROUS_BRIDGE.md).
@@ -124,14 +124,14 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 - **Central question:** How does expanding a share-dependent measurement into frequencies expose a usable constraint?
 - **Understanding target:** Interpret finite-field characters, Fourier normalization, inversion and Parseval. For Hermitian $`M_i(y)`$, explain $`A_i(-k)=A_i(k)^\dagger`$ and why $`k\ne-k`$ for nonzero frequencies over an odd prime field. A Fourier operator need not itself be Hermitian.
 - **Dependencies and story role:** Requires M01, M08 and M09; joins the classical field inputs to quantum operator coefficients.
-- **Conceptual connection:** Opposite-frequency symmetry and the binary-measurement constraint will limit the total local second or fourth moment without a factor depending on field size.
+- **Conceptual connection:** Opposite-frequency symmetry and the binary-measurement constraint give the local second-moment budget and the cap on each nonzero weight, independently of field size.
 - **Source pointers:** [Fourier structure §2](../science/fourier.md#2-local-observable-fourier-coefficients); [network estimates §§1 and 5](../science/network_bounds.md). Watrous §1.1.3 supplies matrix inner products and norms; the finite-field Fourier derivation is supplied locally.
 
 ### M13 — Sharing cosets, dual codes and the MDS property
 
 - **Phase:** Background/preliminaries.
 - **Central question:** Which input frequencies survive averaging over the sharing randomness?
-- **Understanding target:** Recognize the affine sharing coset $`s\mathbf1+C_0`$ and its dual code $`C=C_0^\perp`$. Explain its dimension $`r=n-t+1`$, minimum nonzero weight $`t`$, and bijective projection onto any $`r`$ coordinates. Identify secret-independent surviving words as a possible additional cancellation.
+- **Understanding target:** Recognize the affine sharing coset $`s\mathbf1+C_0`$ and its dual code $`C=C_0^{⟂}`$. Explain its dimension $`r=n-t+1`$, minimum nonzero weight $`t`$, and bijective projection onto any $`r`$ coordinates. Identify secret-independent surviving words as a possible additional cancellation.
 - **Dependencies and story role:** Requires M01–M03 and M12; consolidates the classical algebra into the structure used by the security proof.
 - **Conceptual connection:** Character orthogonality removes frequencies outside the dual code; minimum distance forces every retained nonzero word to involve many devices.
 - **Source pointers:** [Fourier structure §1](../science/fourier.md#1-the-sharing-coset-and-its-dual-code); [MDS provenance](../references/RELATED_WORK.md#the-mds-inequality-and-minimum-distance-weighting). This coding-theory connection is supplied locally, outside the Watrous anchor's role.
@@ -150,144 +150,143 @@ Dependencies name earlier milestones supplying the essential ideas. Source point
 ### M15 — Schmidt expansion and graph contraction
 
 - **Phase:** Narrative/innovation.
-- **Central question:** Why can a dense independent-source network still admit a product bound on a single Fourier coefficient?
-- **Understanding target:** Follow how Schmidt expansion places every edge index at exactly two vertices and how repeated Cauchy–Schwarz bounds the complex tensor contraction by local weighted Hilbert–Schmidt norms. Explain why the operators need not be positive and why mixed-source purification into an endpoint is legitimate.
-- **Dependencies and story role:** Requires M06–M07, M09, M11 and M14; begins the narrative with its local network mechanism.
-- **Conceptual connection:** Unbounded degree changes the local matrices but does not alter the two-endpoint contraction rule or introduce a dimension factor.
-- **Source pointers:** [Network estimates, Lemma 2.1 and Eq. (2.4)](../science/network_bounds.md#2-complex-contraction-on-a-graph); Watrous §1.1.3 for Schmidt decomposition and norms; [attribution](../references/RELATED_WORK.md#network-finner-and-the-complex-contraction).
+- **Central question:** Why can a dense independent-source network still admit a product bound on an operator expectation?
+- **Understanding target:** Follow how Schmidt expansion places every edge index at exactly two vertices and how Cauchy–Schwarz bounds the complex tensor contraction by local weighted Hilbert–Schmidt norms. Explain how a mixed source can be purified into a device endpoint for this calculation.
+- **Dependencies and story role:** Requires M06–M07, M09, M11 and M14. Establishes the contraction used to read the graph structure.
+- **Conceptual connection:** Unbounded degree changes the local matrices while every source still has two endpoints.
+- **Source pointers:** [Network estimates §2](../science/network_bounds.md#2-complex-contraction-on-a-graph), especially Lemma 2.1 and Eq. (2.4). Watrous §1.1.3 supplies Schmidt decomposition and norms.
 
-### M16 — Quantum Finner for positive effects
-
-- **Phase:** Narrative/innovation.
-- **Central question:** What does the graph contraction imply for the probability of simultaneous local accepting events?
-- **Understanding target:** Explain the bound of a joint event probability by the product of square roots of local event probabilities. Identify where positivity, $`0\preceq B_i\preceq I`$, and $`B_i^2\preceq B_i`$ enter, and why mixed-source endpoint dilation preserves the probabilities used in this statement.
-- **Dependencies and story role:** Requires M08, M11 and M15; turns the complex contraction into the event form needed for arbitrary references.
-- **Conceptual connection:** A positive measurement effect and a general Fourier observable are different objects. Later the valid effect is $`A_i(k)^\dagger A_i(k)`$.
-- **Source pointers:** [Network estimates, Corollary 2.2](../science/network_bounds.md#corollary-22-positive-effect-quantum-finner-inequality); Watrous §§2.3.1–2.3.2 for effects; Renou et al. in [related work](../references/RELATED_WORK.md#network-finner-and-the-complex-contraction).
-
-### M17 — A reference that is another graph vertex
+### M16 — Quantum Finner for positive products
 
 - **Phase:** Narrative/innovation.
-- **Central question:** When can the adversary's entire retained system be included directly in the graph contraction?
-- **Understanding target:** Use trace-norm duality to insert a unitary at vertex $`E`$, whose weighted norm contributes at most one. Explain why arbitrary joint processing of that vertex is allowed, while assigning the purification of a device-device source to a third endpoint is outside this reference scope.
-- **Dependencies and story role:** Requires M07, M09, M11, M14 and M15; establishes the structured-reference branch of the argument.
-- **Conceptual connection:** Bounding an operator on $`E`$ reduces to bounding scalar expectations, while retaining the original bipartite-source structure.
-- **Source pointers:** [Network estimates, Proposition 3.1 and Eqs. (3.1)–(3.4)](../science/network_bounds.md#3-second-moments-and-graph-vertex-references); Watrous §1.1.3, Eqs. (1.182)–(1.183); [model reference scopes](../science/model.md#three-reference-scopes).
+- **Central question:** How does the source graph bound the expectation of a product of positive local operators?
+- **Understanding target:** Interpret the bound by the product of local second-moment square roots. Relate it to the event bound for effects by using $`B_i^2\preceq B_i`$ when $`0\preceq B_i\preceq I`$. Explain why the proof for general positive operators will retain the second moments.
+- **Dependencies and story role:** Requires M08, M11 and M15. Supplies the positive-operator form needed on the device marginal.
+- **Conceptual connection:** The absolute value of a Fourier operator is positive and can enter this bound even when the Fourier operator is complex.
+- **Source pointers:** [Network estimates §§2 and 4](../science/network_bounds.md). Watrous §§1.1.3 and 2.3.1 give the operator and measurement ingredients. [Research attribution](../references/RELATED_WORK.md#network-finner-and-the-complex-contraction) identifies quantum Finner.
 
-### M18 — Symmetric second-moment budgets
-
-- **Phase:** Narrative/innovation.
-- **Central question:** How does one leaked bit bound all local Fourier coefficients at once?
-- **Understanding target:** Connect matrix Parseval, the weighted norm and $`M_i(y)^2\preceq I`$ to $`\sum_k a_i(k)^2\le1`$. Explain the symmetry $`a_i(-k)=a_i(k)`$ and the product bound on network coefficients, with the local marginal defined in the chosen pure-source dilation.
-- **Dependencies and story role:** Requires M08–M09, M12 and M15–M17; completes the coefficient budget for no reference or a graph-vertex reference.
-- **Conceptual connection:** A fixed local budget prevents many opposite-frequency pairs from all having large weight, regardless of the field size or device dimension.
-- **Source pointers:** [Network estimates, Proposition 3.1 and Eq. (3.5)](../science/network_bounds.md#3-second-moments-and-graph-vertex-references); [operator Fourier identity](../science/fourier.md#2-local-observable-fourier-coefficients); Watrous §1.1.3 for the Hilbert–Schmidt norm.
-
-### M19 — Removing an arbitrary reference by Cauchy–Schwarz
+### M17 — The adversary as a source-graph vertex
 
 - **Phase:** Narrative/innovation.
-- **Central question:** What remains controllable when the adversary's extension has no graph factorization?
-- **Understanding target:** Follow trace-norm duality and state Cauchy–Schwarz to bound a reference-valued coefficient by $`(\mathrm{Tr}\,\Omega_D K^\dagger K)^{1/2}`$. Explain why the extension disappears from this expression but the literal independent-source device marginal remains necessary.
-- **Dependencies and story role:** Requires M07, M09, M14 and M15; opens the broader-reference branch without treating $`E`$ as a graph vertex.
-- **Conceptual connection:** Security is bounded for the complete final state, without conditioning on an adversary measurement and discarding the probability of its outcome.
-- **Source pointers:** [Network estimates, Eqs. (4.3)–(4.4)](../science/network_bounds.md#4-fourth-moments-with-an-arbitrary-external-reference); Watrous §1.1.3 for duality, §2.1.3 for purifications and §2.2.2, Proposition 2.29, for arbitrary extensions.
+- **Central question:** When can the retained adversary register enter the graph contraction directly?
+- **Understanding target:** Use trace-norm duality to insert a unitary at vertex $`E`$, whose weighted norm contributes at most one. Explain what changes in the resource representation when an adversary holds purification registers for sources between devices.
+- **Dependencies and story role:** Requires M07, M09, M11, M14 and M15. Shows how reference geometry enters a direct graph proof.
+- **Conceptual connection:** A witness acts on all of $`E`$ jointly. Whether that witness can be assigned to a source-graph vertex depends on which systems each independent source supplies.
+- **Source pointers:** [Network estimates §3](../science/network_bounds.md#3-second-moments-and-graph-vertex-references) and [model reference scopes](../science/model.md#three-reference-scopes). Watrous §1.1.3, Eqs. (1.182)–(1.183), supplies the norm identity.
 
-### M20 — Symmetric fourth-moment budgets
-
-- **Phase:** Narrative/innovation.
-- **Central question:** Why does the arbitrary-reference argument produce a fourth moment rather than a second moment?
-- **Understanding target:** Combine M19's square root with event Finner's square root, then symmetrize the bounds for $`k`$ and $`-k`$. Explain $`c_i(k)=[b_i(k)b_i(-k)]^{1/8}`$ and $`\sum_k c_i(k)^4\le1`$, without assuming $`b_i(k)=b_i(-k)`$.
-- **Dependencies and story role:** Requires M12, M16 and M19; completes the coefficient estimate for arbitrary extensions.
-- **Conceptual connection:** The two square roots explain the change in the eventual exponent. This is a difference between proved estimates, not a proof that the optimal leakage rates separate by the same amount.
-- **Source pointers:** [Network estimates, Proposition 4.1 and Eqs. (4.5)–(4.9)](../science/network_bounds.md#4-fourth-moments-with-an-arbitrary-external-reference); Watrous §§1.1.3 and 2.3.1 for the underlying norm and effect notions.
-
-### M21 — Output parities and the final state
+### M18 — A second-moment budget for each device
 
 - **Phase:** Narrative/innovation.
-- **Central question:** How do coefficient estimates become a bound on everything the adversary receives?
-- **Understanding target:** Expand the binary output register into parity characters $`\chi_S(b)`$ with operator-valued coefficients $`F_{S,E}(s)`$. Explain the exact cq identity, additivity of trace norm across classical blocks, and the resulting sum of parity norms. Keep this binary expansion separate from the finite-field input expansion.
-- **Dependencies and story role:** Requires M04–M05, M08–M09, M12 and M14; connects local coefficient control to the global distinguishing task.
-- **Conceptual connection:** The factors $`2^{-n}`$ and the number of classical output blocks cancel. A scalar Parseval improvement is available only when the reference is absent.
-- **Source pointers:** [Fourier structure §§3–4](../science/fourier.md#3-output-parities-with-a-quantum-reference); Watrous §§2.1–2.3 for the cq and measurement framework.
+- **Central question:** How does one leaked bit constrain all Fourier coefficients of a device at once?
+- **Understanding target:** Apply operator Parseval and $`M_i(y)^2\preceq I`$ to $`b_i(k)=\mathrm{Tr}(\rho_i A_i(k)^\dagger A_i(k))`$. Explain why pairing opposite frequencies in $`h_i(k)=[b_i(k)b_i(-k)]^{1/4}`$ gives $`\sum_k h_i(k)^2\le1`$ and $`h_i(k)\le1/\sqrt 2`$ when $`k\ne0`$.
+- **Dependencies and story role:** Requires M08–M09, M12 and M16. Gives the local budget that both reconstruction regimes use.
+- **Conceptual connection:** Two equal contributions occupy the budget for each opposite-frequency pair. The symmetry of the pair is enough even when the two unsymmetrized moments differ.
+- **Source pointers:** [Fourier structure §2](../science/fourier.md#2-local-observable-fourier-coefficients) and [network estimates §4](../science/network_bounds.md#4-second-moments-with-an-arbitrary-external-reference). Watrous §1.1.3 supplies the matrix norm background.
+
+### M19 — Polar decomposition for an arbitrary reference
+
+- **Phase:** Narrative/innovation.
+- **Central question:** How can a trace-norm witness on an arbitrary extension be controlled by the device marginal alone?
+- **Understanding target:** Factor the device operator as $`K=|K^\dagger|^{1/2}U|K|^{1/2}`$. Use trace-norm duality and Cauchy–Schwarz on the joint state to obtain the geometric mean of device expectations of $`|K^\dagger|`$ and $`|K|`$. Explain how the bound includes every unitary witness on the reference.
+- **Dependencies and story role:** Requires M07, M09, M14 and M16–M18. Extends the second-moment method to arbitrary extensions of the prescribed marginal.
+- **Conceptual connection:** Polar decomposition moves all reference dependence into the unitary witness. Both scalar factors retain positive products on the devices.
+- **Source pointers:** [Network estimates §4](../science/network_bounds.md#4-second-moments-with-an-arbitrary-external-reference). Watrous §1.1.3 locates polar decomposition and trace-norm duality.
+
+### M20 — Fourier coefficients of the binary effects
+
+- **Phase:** Narrative/innovation.
+- **Central question:** How does a fixed codeword appear in each classical outcome block?
+- **Understanding target:** For a leaked bit $`u_i`$, read the nonzero-frequency coefficient of $`P_i(u_i\mid y)`$ as $`(-1)^{u_i}A_i(k_i)/2`$. At zero frequency read it as the averaged effect $`B_i(u_i)`$, a positive operator, with the two effects summing to identity.
+- **Dependencies and story role:** Requires M05, M08, M12–M14 and M19. Prepares the outcome sum before applying the graph bound.
+- **Conceptual connection:** The dual word determines which sites carry signs and which carry positive effects.
+- **Source pointers:** [Fourier structure](../science/fourier.md) and [network estimates §4](../science/network_bounds.md#4-second-moments-with-an-arbitrary-external-reference). Watrous §§2.3.1–2.3.2 supplies the local effect model.
+
+### M21 — Summing outcomes outside the codeword support
+
+- **Phase:** Narrative/innovation.
+- **Central question:** Why does a zero-frequency site contribute no penalty to the bound on a codeword?
+- **Understanding target:** Use trace-norm additivity across classical blocks. Sum the nonzero-frequency outcome signs in absolute value, cancelling the factors of one half. Sum the remaining positive-effect terms by scalar Cauchy–Schwarz before applying Finner. Identify the resulting product of $`h_i(k_i)`$ over the support.
+- **Dependencies and story role:** Requires M05, M09, M13 and M18–M20. Connects the device estimate to the full adversarial state and the weighted dual-code sum.
+- **Conceptual connection:** Completeness acts inside each scalar sum after Cauchy–Schwarz. This keeps the conditional reference and outcome probabilities in the calculation.
+- **Source pointers:** [Network estimates §4](../science/network_bounds.md#4-second-moments-with-an-arbitrary-external-reference) and [Watrous bridge §5](WATROUS_BRIDGE.md#5-the-norms-serve-different-purposes).
 
 ### M22 — Full threshold leaves one relevant parity
 
 - **Phase:** Narrative/innovation.
 - **Central question:** Why does the full-threshold problem reduce exactly to the parity of all leaked bits?
-- **Understanding target:** Combine additive coordinates with the privacy of every proper share subset. Explain why proper output-parity operators are secret independent even with $`E`$, and obtain $`\Delta=\frac12\|F_{[n],E}(s)-F_{[n],E}(s')\|_1`$. Identify the surviving common-frequency words $`(k,\ldots,k)`$.
-- **Dependencies and story role:** Requires M02–M03, M10, M12 and M21; integrates the sharing and output structure before applying either network budget.
-- **Conceptual connection:** The single-parity equality is stronger than a general triangle bound and enables the exact even-device result.
-- **Source pointers:** [Fourier structure §5](../science/fourier.md#5-full-threshold-and-additive-coordinates); [full-threshold proof §§2–3](../science/full_threshold.md#2-additive-coordinates-and-the-single-relevant-parity). Watrous §2.3.2 supports the partial-measurement interpretation.
+- **Understanding target:** Combine additive coordinates with the privacy of every proper share subset. Explain why proper output-parity operators are secret independent even with $`E`$, and obtain $`\Delta=\frac12\Vert F_{[n],E}(s)-F_{[n],E}(s')\Vert _1`$. Identify the surviving common-frequency words $`(k,\ldots,k)`$.
+- **Dependencies and story role:** Requires M02–M03, M10, M12 and M20–M21. Gives the exact reduction used at $`t=n`$.
+- **Conceptual connection:** The single parity gives an equality and exposes the finite-prime factor in the next step.
+- **Source pointers:** [Fourier structure §5](../science/fourier.md#5-full-threshold-and-additive-coordinates) and [full-threshold proof §2](../science/full_threshold.md#2-additive-coordinates-and-the-single-relevant-parity). Watrous §2.3.2 supplies the partial-measurement interpretation.
 
 ### M23 — Paired Hölder and the finite-prime factor
 
 - **Phase:** Narrative/innovation.
-- **Central question:** How do the two local moment budgets yield exponential full-threshold secrecy without a field-size loss?
-- **Understanding target:** Explain why symmetric moment order $`d`$ gives $`\sum_{k\ne0}\prod_i f_i(k)\le2^{1-n/d}`$ for $`n\ge d`$. Combine this with the largest odd-prime phase difference to obtain the factor $`\cos(\pi/(2p))`$. Track $`d=2,n\ge2`$ and $`d=4,n\ge4`$ separately.
-- **Dependencies and story role:** Requires M12, M18, M20 and M22; completes both full-threshold upper bounds.
-- **Conceptual connection:** Opposite-frequency pairs replace a naive sum over $`p-1`$ frequencies, while the reference model determines the available moment order.
-- **Source pointers:** [Network estimates, Lemma 5.1](../science/network_bounds.md#5-pairing-the-nonzero-frequencies); [full-threshold proof §3](../science/full_threshold.md#3-fourier-proof-and-the-finite-prime-factor); Watrous §1.1.3 for norm and Hölder background.
+- **Central question:** How do the local second-moment budgets give a sharp full-threshold upper bound?
+- **Understanding target:** Use opposite-frequency symmetry and Hölder to bound the common-frequency sum by $`2^{1-n/2}`$. Explain why the largest odd-prime phase difference has magnitude $`2\cos(\pi/(2p))`$ and where the trace-distance normalization cancels the factor of two.
+- **Dependencies and story role:** Requires M12, M18–M19 and M22. Completes the full-threshold upper bound for arbitrary extensions.
+- **Conceptual connection:** Frequency pairing and the phase factor have different origins. One counts the moment budget and the other reflects the spacing of field characters.
+- **Source pointers:** [Network estimates §5](../science/network_bounds.md#5-pairing-the-nonzero-frequencies) and [full-threshold proof §3](../science/full_threshold.md#3-fourier-proof-and-the-finite-prime-factor).
 
 ### M24 — A Bell matching attains the even-device optimum
 
 - **Phase:** Narrative/innovation.
 - **Central question:** Can an admissible strategy attain the full-threshold upper bound?
-- **Understanding target:** Follow independent Bell pairs and share-dependent equatorial measurements to a product of cosine correlations. Explain why additive averaging retains only the all-plus and all-minus Fourier terms, and how a frequency and total phase chosen for the challenge pair attain $`2^{1-n/2}\cos(\pi/(2p))`$.
-- **Dependencies and story role:** Requires M06, M08, M11 and M22–M23; joins the converse with a matching construction.
-- **Conceptual connection:** Equality holds for even $`n`$ over the permitted graph class, and on any prescribed graph containing a perfect matching. It does not establish sharpness for arbitrary extensions or every fixed graph.
-- **Source pointers:** [Full-threshold proof §4](../science/full_threshold.md#4-an-attack-attaining-the-graph-vertex-bound-for-even-size); [finite Bell-pair checks](../verification/README.md); Watrous §§1.1.3, 2.1.3 and 2.3 for bipartite states and measurements.
+- **Understanding target:** Follow independent Bell pairs and share-dependent equatorial measurements to a product of cosine correlations. Explain why additive averaging retains only the two terms with a common sign. Choose a frequency and phase for the challenge pair and obtain $`2^{1-n/2}\cos(\pi/(2p))`$.
+- **Dependencies and story role:** Requires M06, M08, M11 and M22–M23. Matches the converse at even size.
+- **Conceptual connection:** The same construction attains the optimum across the allowed arbitrary-extension class and on a prescribed graph containing a perfect matching. The upper bound also applies at odd size.
+- **Source pointers:** [Full-threshold proof §4](../science/full_threshold.md#4-bell-pair-attainment), [two-share example](WATROUS_BRIDGE.md#7-worked-binary-example-two-shares-and-one-bell-pair) and [verification](../verification/README.md).
 
-### M25 — General thresholds and zero-frequency choices
-
-- **Phase:** Narrative/innovation.
-- **Central question:** What must be counted when proper output parities can also depend on the secret?
-- **Understanding target:** Organize the parity sum by nonzero dual-code words. A nonzero coordinate forces its device into the parity; a zero coordinate may be included or excluded. Explain the arbitrary-reference factor $`1+c_i(0)`$ and why merely reusing the single full parity would omit real terms.
-- **Dependencies and story role:** Requires M13, M20–M22; starts the extension from full reconstruction threshold to $`t<n`$.
-- **Conceptual connection:** The sharing code supplies the compulsory sites, while the binary output expansion supplies the optional sites. Their interaction determines the local factors to which MDS Hölder will apply.
-- **Source pointers:** [Fourier structure §3](../science/fourier.md#3-output-parities-with-a-quantum-reference); [general-threshold proof §1, Step 1](../science/general_threshold.md#step-1-sum-the-reference-valued-parity-coefficients).
-
-### M26 — Weighted MDS Hölder and minimum distance
+### M25 — Weighted MDS Hölder and minimum distance
 
 - **Phase:** Narrative/innovation.
-- **Central question:** How can a sum over many dual-code words be bounded without paying for their field-dependent count?
-- **Understanding target:** Explain how bijective $`r`$-coordinate projections yield the MDS inequality with $`q=n/r`$. Use a weight $`\lambda\ge1`$ on nonzero coordinates and minimum weight $`t`$ to extract $`\lambda^{-t}`$. Recognize adding the zero word as an upper-bound relaxation.
-- **Dependencies and story role:** Requires M13, M18, M20 and M25; combines coding structure with local moment budgets.
-- **Conceptual connection:** The normalization factors cancel because the code has $`p^r`$ words. Both the MDS inequality and minimum-distance weighting are imported ingredients, not new analytic claims.
-- **Source pointers:** [General-threshold proof §1, Steps 2–3](../science/general_threshold.md#step-2-the-imported-mds-hölder-inequality); [MDS attribution](../references/RELATED_WORK.md#the-mds-inequality-and-minimum-distance-weighting). Watrous §1.1.3 supplies related norm inequalities, not this code theorem.
+- **Central question:** How can a sum over many dual words be controlled independently of field size?
+- **Understanding target:** Use bijective $`r`$-coordinate projections to understand MDS Hölder with $`r=n-t+1`$ and $`q=n/r`$. Give every nonzero coordinate a weight $`\lambda\ge1`$ so minimum distance extracts $`\lambda^{-t}`$. Explain why the all-zero word contributes one to the weighted sum and is subtracted.
+- **Dependencies and story role:** Requires M13, M18 and M21. Turns the support sum into a computable finite expression.
+- **Conceptual connection:** MDS controls how the code combines coordinates, and binary quantum measurement controls the mass and size of each local nonzero weight.
+- **Source pointers:** [General-threshold proof §1](../science/general_threshold.md#1-explicit-finite-bound) and [MDS attribution](../references/RELATED_WORK.md#the-mds-inequality-and-minimum-distance-weighting).
 
-### M27 — The finite arbitrary-reference bound and its rate
-
-- **Phase:** Narrative/innovation.
-- **Central question:** When does the general bound remain exponentially small despite arbitrary quantum side information?
-- **Understanding target:** Combine fourth moments and weighted MDS Hölder under the finite condition $`q=n/(n-t+1)\ge4`$. Interpret optimizing $`\lambda`$ and the entropy expression for the exponent. Explain the sufficient asymptotic rate $`0.9042045925\ldots`$ with a fixed positive margin, rather than treating that decimal as an optimal threshold.
-- **Dependencies and story role:** Requires M20, M21 and M25–M26; completes the arbitrary-reference general-threshold theorem.
-- **Conceptual connection:** The asymptotic rate is extracted from a finite, graph- and dimension-uniform bound. The full-threshold theorem separately retains the sharper finite-prime cosine factor.
-- **Source pointers:** [General-threshold proof §§1–2](../science/general_threshold.md#1-arbitrary-quantum-side-information); [optimization checks](../verification/README.md); [model reference scopes](../science/model.md#three-reference-scopes).
-
-### M28 — The stronger scalar bound without a reference
+### M26 — Reading the finite bound
 
 - **Phase:** Narrative/innovation.
-- **Central question:** Which additional improvement becomes available when the leaked state is an ordinary probability distribution?
-- **Understanding target:** Explain scalar output Parseval, Minkowski and the factor $`\sqrt{1+a_i(0)^2}`$. Connect the shared second-moment budget to a convex local expression whose maximum is at an endpoint. Interpret the finite $`q\ge2`$ optimizer and sufficient rate $`0.7569352556\ldots`$ without extending the scalar step to operator-valued trace norm.
-- **Dependencies and story role:** Requires M18, M21 and M25–M27; completes the second general-threshold result and explains why its proof is stronger in a narrower scope.
-- **Conceptual connection:** Retaining a square-sum over parities saves information lost by a triangle inequality. The two sufficient rates do not prove a separation between optimal security thresholds.
-- **Source pointers:** [Fourier structure §4](../science/fourier.md#4-the-stronger-scalar-output-estimate); [general-threshold proof §3](../science/general_threshold.md#3-a-stronger-bound-without-a-quantum-reference); [optimization checks](../verification/README.md).
+- **Central question:** What explicit bound is available before taking a limit in the number of shares?
+- **Understanding target:** Under $`q\ge2`$, use the second-moment budget and $`h_i(k)\le1/\sqrt 2`$ to bound the local $`q`$-mass. Interpret the optimization over $`\lambda`$ and the resulting entropy estimate. Explain the difference between computing this finite bound and determining the leading exponent.
+- **Dependencies and story role:** Requires M18, M21 and M25. Gives a finite estimate for arbitrary references and sets up the sharper asymptotic question.
+- **Conceptual connection:** The finite Hölder estimate and the asymptotic code-sum estimate start from the same support bound.
+- **Source pointers:** [General-threshold proof §1](../science/general_threshold.md#1-explicit-finite-bound) and [finite verification](../verification/README.md).
+
+### M27 — The code sum above one half
+
+- **Phase:** Narrative/innovation.
+- **Central question:** How does the weighted code estimate improve the asymptotic reconstruction range?
+- **Understanding target:** Use the support product and the weighted dual-code estimate for generalized Reed–Solomon sharing. Identify the cap $`1/\sqrt 2`$ on every nonzero weight and the bounded local second moment. Distinguish words with few small coordinates, which agree with bounded lists, from words with many small coordinates, whose total weight is controlled on two disjoint information sets. Interpret the polynomial loss and the fixed positive margin in $`t/n\ge1/2+\eta`$.
+- **Dependencies and story role:** Requires M13, M18, M21 and M25–M26. Establishes the uniform upper bound with leading exponent $`t/2`$.
+- **Conceptual connection:** The code estimate depends on the local weights, and those weights already allow arbitrary reference dimension and complete source graphs.
+- **Source pointers:** [General-threshold proof §2](../science/general_threshold.md#2-sharp-exponent-above-one-half) and [coding-theory attribution](../references/RELATED_WORK.md).
+
+### M28 — Matching the exponent on a reconstruction set
+
+- **Phase:** Narrative/innovation.
+- **Central question:** Why does the upper bound capture the leading worst-case exponent below full threshold?
+- **Understanding target:** Select any $`t`$ shares that reconstruct and reduce their marginal to a full-threshold additive sharing. Pair those devices when $`t`$ is even. At odd $`t`$, explain how a sign-of-cosine bit on the leftover device provides a nonzero coefficient of constant size. Use constant outputs outside the chosen set.
+- **Dependencies and story role:** Requires M02–M03, M22–M24 and M27. Matches the leading exponent over admissible graphs for either parity of $`t`$.
+- **Conceptual connection:** The marginal has exactly the constraints that the full-threshold calculation needs. The odd leftover device affects a constant, and the polynomial upper factor contributes $`O(\log n)`$ to the exponent.
+- **Source pointers:** [General-threshold proof §2](../science/general_threshold.md#2-sharp-exponent-above-one-half) and [Bell-pair calculation](../science/full_threshold.md#4-bell-pair-attainment).
 
 ### M29 — Classical flags, coherent purifications and preparation
 
 - **Phase:** Narrative/innovation.
 - **Central question:** Why can an allowed classical shared choice and a coherent purification of the same device mixture have different security consequences?
-- **Understanding target:** Explain averaging of a uniform branchwise bound with the classical flag retained. Contrast this with the explicit GHZ purification whose leaked parity and retained qubit reveal a secret-dependent phase. Distinguish local processing from communicating preparation, source graphs from stabilizer graph states, and a single leakage episode from resource reuse.
-- **Dependencies and story role:** Requires M05–M07, M10–M11, M14 and M23–M28; examines the global theorem's premises through concrete resource changes.
-- **Conceptual connection:** Equality of device marginals alone does not license replacing a branchwise classical model by arbitrary extensions of an unlabelled convex mixture.
-- **Source pointers:** [Resource boundaries](../science/boundaries.md); [network estimates §6](../science/network_bounds.md#6-conditioning-on-actual-classical-randomness); Watrous §§2.1.3 and 6.1.2 for purifications and LOCC. The network-specific boundary example is supplied locally.
+- **Understanding target:** Explain averaging of a uniform branchwise bound when the classical flag is retained. Follow the GHZ purification example, in which leaked parity and a retained qubit reveal a secret-dependent phase. Identify where the independent-source premise can fail if devices communicate during preparation.
+- **Dependencies and story role:** Requires M05–M07, M10–M11, M14 and M23–M28. Tests the theorem's premises through concrete resource changes.
+- **Conceptual connection:** The graph bound applies to each labelled branch. With a coherently purified unlabelled mixture, the averaged device marginal can lose the required product form.
+- **Source pointers:** [Resource boundaries](../science/boundaries.md) and [network estimates §6](../science/network_bounds.md#6-conditioning-on-actual-classical-randomness). Watrous §§2.1.3 and 6.1.2 provides the purification and LOCC background.
 
 ### M30 — The complete result, its significance and its evidence
 
 - **Phase:** Narrative/innovation.
-- **Central question:** What has the argument established about one-bit Shamir leakage, and what evidence supports each part?
-- **Understanding target:** Explain how independent bipartite sources constrain even a dense network, how share-code structure forces many small Fourier factors, and how the output expansion turns those factors into secrecy. Distinguish the exact even-device full-threshold optimum from sufficient general-threshold rates, inherited tools from the cryptographic conclusion, and universal analytic proofs from finite numerical checks.
-- **Dependencies and story role:** Integrates both phases, especially M14, M23–M24 and M27–M29; completes the map with the contribution as a whole.
-- **Conceptual connection:** The result concerns unchanged classical Shamir sharing, one classical bit per device and the declared reference/resource models. It supplies no automatic theorem for leaked qubits, adaptive feedback or repeated resource use.
-- **Source pointers:** [Scientific overview](../README.md); [proof dependency route](../science/README.md); [related work](../references/RELATED_WORK.md); [resource boundaries](../science/boundaries.md); [verification and its limits](../verification/README.md); [Watrous bridge](WATROUS_BRIDGE.md).
-
+- **Central question:** What establishes the secrecy exponent, and what makes the finite even-size statement exact?
+- **Understanding target:** Connect the literal independent-source marginal, polar inequality and sum over inactive outcomes to the weighted dual-code sum. Explain the exact even-size full-threshold optimum and the matching $`t/2`$ exponent above a fixed margin from one half. Identify the inherited network and coding tools and the scope of the finite checks.
+- **Dependencies and story role:** Integrates both phases, especially M14, M19–M24 and M26–M29. Completes the scientific story.
+- **Conceptual connection:** The argument covers one classical bit per device in a single episode without communication or feedback. Rates at or below one half, exact finite odd-size optima, leakage of quantum registers and feedback are outside the established conclusions.
+- **Source pointers:** [Project overview](../README.md), [scientific route](../science/README.md), [related work](../references/RELATED_WORK.md), [resource boundaries](../science/boundaries.md), and [verification](../verification/README.md).
